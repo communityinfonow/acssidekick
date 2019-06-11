@@ -1,0 +1,2 @@
+CREATE DATABASE 2016_acs5;
+GRANT ALL PRIVILEGES ON 2016_acs5.* TO 'acstest'@'localhost' IDENTIFIED BY 'Dv3pYq8cYhTn';
