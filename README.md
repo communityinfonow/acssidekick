@@ -28,3 +28,45 @@ php -r "unlink('composer-setup.php');"
 
 (See https://getcomposer.org/download/)
 
+*Clone this repo*
+```
+git clone https://github.com/communityinfonow/acssidekick.git
+```
+
+*Set permissions for Laravel*
+```
+cd acssidekick
+chown -R www-data.www-data storage/ bootstrap/cache
+```
+
+*Install dependencies with composer*
+```
+composer install
+```
+
+*Create (MySQL or compatible) database and user*
+```sql
+CREATE DATABASE acs_sidekick;
+GRANT ALL PRIVILEGES on acs_sidekick.* to 'sidekick'*'localhost' IDENTIFIED BY 'somesecurepassword';
+FLSUH PRIVILEGES;
+```
+
+*Create and configure .env file*
+```
+cp .env.example .env
+vi .env
+```
+(Add YOUR configuration)
+
+*Generate your unique application key*
+```
+php artisan key:generate
+```
+
+*Run migrations*
+```
+php artisan migrate
+```
+
+
+
