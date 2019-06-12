@@ -3,7 +3,7 @@ ACS Sidekick - README
 The ACS Sidekick is a single-page Laravel application and a set of related tools
 for simplifying access to certain data released by the US Census Bureau.
 
-**Quickstart:**
+**Installation**
 
 *Install dependencies for Laravel:*
 * PHP >= 7.1.3
@@ -68,5 +68,25 @@ php artisan key:generate
 php artisan migrate
 ```
 
+*Configure webserver*
+
+Example Apache2 container:
+
+```
+    <VirtualHost *:80>
+        ServerAdmin your@admin.email
+        ServerName your.server.name
+        DocumentRoot /path/to/acssidekick/public
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+        <Directory /path/to/acssidekick/public>
+            AllowOverride All
+        </Directory>
+```
+
+At this point you should be able to visit the site at:
+http://your.server.name/ and be greeted with a login screen.  Go ahead and register yourself.
 
 
