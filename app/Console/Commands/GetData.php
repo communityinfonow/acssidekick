@@ -219,11 +219,11 @@ class getdata extends Command
 
 				$qry  = "CREATE TABLE ".$tblname." (\n";
 				$qry .= " ID INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,\n";
-				$qry .= " ".$tbl."_".$geoname." VARCHAR(256) NOT NULL, \n";
-				$qry .= " ".$tbl."_".$geoname."NAME VARCHAR(256) NOT NULL, \n";
+				$qry .= " ".$tbl."_".$geoname." VARCHAR(255) NOT NULL, \n";
+				$qry .= " ".$tbl."_".$geoname."NAME VARCHAR(255) NOT NULL, \n";
 				if (isset($arrDSConfig['geo_parents'][$geoname])) { // Add in supporting cols for geography dependencies
 					foreach ($arrDSConfig['geo_parents'][$geoname] as $parent) {
-						$qry .= " ".$tbl."_".$parent." VARCHAR(256), \n";
+						$qry .= " ".$tbl."_".$parent." VARCHAR(255), \n";
 					}
 				}
 				$ct=1;
@@ -238,7 +238,7 @@ class getdata extends Command
 				if ($ct > 999) { // Too many damn columns. Current Innodb has a hard limit of 1017, earlier version 1000. 
 					$qry .= ") ENGINE = MYISAM;\n";
 				} else {
-					$qry .= ");\n";
+					$qry .= ") DEFAULT CHARSET=utf8;\n";
 				}
 				
 				// Create the table
