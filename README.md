@@ -95,7 +95,7 @@ You will see the following message:
 *Make yourself an administrator*
 ```sql
 USE acs_sidekick; --or whatever you named the DB
-UPDATE users SET role='admin' WHERE email = 'theemailaddress@youregistered.with';
+UPDATE users SET role='admin' WHERE email = 'your@email.com'; --or whatever address you registered with
 ```
 
 Now if you revisit the app url, you should see the Query Builder.  You may manage other self-registered users via the "Admin" link in the left-hand navigation panel.  If you demote yourself from Admin and there are no other admin users established, run the sql query above to restore your admin rights.
