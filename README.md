@@ -174,3 +174,20 @@ Importing B01001 ...
   Creating table STATE_B01001 ...
     Retrieving data ....+.+.+.+.+
 ```
+Once you are satisfied that the data import is working propoerly, you can run:
+```
+php artisan sidekick:getdata 2016_acs5 load all 48
+```
+This will load all the supported tables and geographies for state 48 (Texas).
+*(Note, the more detailed geographies have been commented out in config/datasets.php.  These can be very time consuming to import.  Uncomment the entries to load them.)*
+
+If the "load all" process is interrupted, you may run:
+```
+php artisan sidekick:getdata 2016_acs5 load resume 48
+```
+
+This will resume the load, restarting with the most recently created table.
+
+**Building Metadata**
+
+In order to expose the new dataset to the ACS Sidekick application, you must create metadata for the dataset you imported.  To do this, run `php artisan sidekick:getmeta`.  The `getmeta` process will create metadata for ALL tables and geographies in your dataset, even if you have only pulled a limited number of tables.  *Be patient, it takes a while.*
