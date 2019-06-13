@@ -89,4 +89,13 @@ Example Apache2 container:
 At this point you should be able to visit the site at:
 http://your.server.name/ and be greeted with a login screen.  Go ahead and register yourself.
 
+You will see the following message:
+> Your registration must be validated by an administrator.
 
+*Make yourself an administrator*
+```sql
+USE acs_sidekick; --or whatever you named the DB
+UPDATE users SET role='admin' WHERE email = 'theemailaddress@youregistered.with';
+```
+
+Now if you revisit the app url, you should see the Query Builder.  You may manage other self-registered users via the "Admin" link in the left-hand navigation panel.  If you demote yourself from Admin and there are no other admin users established, run the sql query above to restore your admin rights.
