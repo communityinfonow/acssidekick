@@ -99,3 +99,78 @@ UPDATE users SET role='admin' WHERE email = 'your@email.com'; --or whatever addr
 ```
 
 Now if you revisit the app url, you should see the Query Builder.  You may manage other self-registered users via the "Admin" link in the left-hand navigation panel.  If you demote yourself from Admin and there are no other admin users established, run the sql query above to restore your admin rights.
+
+**Adding Datasets**
+Before you can use the system, you must add one or more datasets.  Supported datasets and geographies are configured in the `config/datasets.php` file:
+
+```php
+return [
+    // Dataset configurations
+    '2016_acs5' => [ // The 2016 Five Year American Community Survey
+        'label' => '2016 ACS 5-year',
+        'titles' => [
+            'detail_tables' => [
+                'base_url' => 'https://api.census.gov/data/2016/acs/acs5',
+                'variable_file' => 'https://api.census.gov/data/2016/acs/acs5/variables.json',
+                'value_type' => 'BIGINT(11)'
+            ]
+        ],
+        'geographies' => [
+            'US' => 'us',
+            'REGION' => 'region',
+            'DIVISION' => 'division',
+            'STATE' => 'state',
+            //'COUNTY' => 'county',
+            //'STATAREA' => 'combined+statistical+area',
+            //'ZCTA' => 'zip+code+tabulation+area'
+        ],
+        'geo_parents' => [
+            'COUNTY' => array('STATE')
+        ]
+    ]
+];
+```
+The primary key for the dataset is known as the "Dataset Name".  Each dataset you import will use its own MySQL database.  Before importing a dataset, you must create the database using the Dataset Name, and grant the application database user access to it:
+
+```sql
+CREATE DATABASE 2016_acs5;
+GRANT ALL PRIVILEGES on 2016_acs5.* to 'sidekick'@'localhost';
+FLUSH PRIVILEGES;
+```
+
+Now, make sure you added your census API key to the .env file:
+
+```
+CENSUS_API_KEY=a1b2c3d4e5f6a7b8d9e0fabcdefg123456780abc
+```
+(Use *your* key)
+
+Now we can use the sidekick:getdata console command to pull data from the Census.gov api:
+```
+php artisan sidekick:getdata
+```
+
+Should return usage instructions:
+
+```
+usage: sidekick:getdata[dataset] [action] [table] [state]
+ where [dataset] = key from config/datasets or 'list'
+ where [action] = 'load' to load table data or 'list' to list table codes
+ where [table] = a comma seperated list of valid table codes for the specified
+   dataset, 'all' for all table codes, or 'resume' to continue an aborted 'all' load
+   (note: 'resume' reloads the last attempted table)
+ where [state] = a valid state code (##) or 'list'
+```
+
+Run `php artisan sidekick:getdata 2016_acs5 load B01001 48` to test loading the B01001 table for Texas.  If all goes well, you should see something like:
+```
+Importing B01001 ...
+  Creating table US_B01001 ...
+    Retrieving data ....+.+.+.+.+
+  Creating table REGION_B01001 ...
+    Retrieving data ....+.+.+.+.+
+  Creating table DIVISION_B01001 ...
+    Retrieving data ....+.+.+.+.+
+  Creating table STATE_B01001 ...
+    Retrieving data ....+.+.+.+.+
+```
