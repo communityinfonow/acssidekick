@@ -84,6 +84,7 @@ Example Apache2 container:
         <Directory /path/to/acssidekick/public>
             AllowOverride All
         </Directory>
+    </VirtualHost>
 ```
 
 At this point you should be able to visit the site at:
