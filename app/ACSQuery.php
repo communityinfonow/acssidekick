@@ -102,7 +102,7 @@ class ACSQuery {
 			}
 
 			// Add in column aggregates, if any.
-			if (isset($qryobj['customaggs']) && count($qryobj['customaggs']>0)) {
+			if (isset($qryobj['customaggs']) && count($qryobj['customaggs'])>0) {
 				foreach ($qryobj['customaggs'] as $customagg) {
 					if ($customagg['type'] == 'col') {
 
@@ -208,7 +208,7 @@ class ACSQuery {
 			// Handle custom row aggregations 
 			// Check if there are any row aggs
 			$rowaggs=false;
-			if (isset($qryobj['customaggs']) && count($qryobj['customaggs']>0)) {
+			if (isset($qryobj['customaggs']) && count($qryobj['customaggs'])>0) {
 				foreach ($qryobj['customaggs'] as $customagg) {
 					if ($customagg['type'] == 'row') {
 						$rowaggs=true;

@@ -234,11 +234,11 @@ class getdata extends Command
 					}
 					$ct++;
 				}
-				$qry .= " UNIQUE KEY geo (".$tbl."_".$geoname.", ".$tbl."_".$geoname."NAME)\n";
+				$qry .= " UNIQUE KEY geo (".$tbl."_".$geoname."(125), ".$tbl."_".$geoname."NAME(125))\n";
 				if ($ct > 999) { // Too many damn columns. Current Innodb has a hard limit of 1017, earlier version 1000. 
 					$qry .= ") ENGINE = MYISAM;\n";
 				} else {
-					$qry .= ") DEFAULT CHARSET=utf8;\n";
+					$qry .= ");\n";
 				}
 				
 				// Create the table
