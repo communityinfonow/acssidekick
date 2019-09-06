@@ -4,7 +4,7 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h2>Query Builder<span id="queryname"></span></h2>
+                    <h4 style="text-transform: uppercase; font-weight: bold; margin-bottom: 20px;">Query Builder<span id="queryname"></span></h4>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -31,7 +31,7 @@
 			<div class="row">
 				<div class="col-lg-6">
 					<div class="form-group">
-						<label>Available Variables</label>
+						<label>Available Fields</label>
 						<input id="filtervariables" class="form-control" placeholder="Filter ...">
 						<select id="selectvariables" multiple size=15 class="form-control">
 						</select>
@@ -39,7 +39,7 @@
 				</div>
 				<div class="col-lg-6">
 					<div class="form-group">
-						<label>Selected Variables</label>
+						<label>Selected Fields</label>
 						<input id="filterselected" class="form-control" placeholder="Filter ...">
 						<select id="selectedvariables" multiple size=15 class="form-control">
 						</select>
@@ -53,14 +53,14 @@
 						<div style="width: 100%;" class="input-group">
 							<div style="width: 40%; vertical-align: top;" class="input-group-btn">
 								<select id="datafiltervar" class="form-control">
-									<option value="">Select a variable ...</option>
+									<option value="">Select a field ...</option>
 								</select>
 							</div>
 							<div style="width: 15%;vertical-align: top;" class="input-group-btn">
 								<select style="-moz-appearance: none; -webkit-appearance: none; appearance: none;" id="datafilterexpr" class="form-control">
 									<option value="is">is</option>
-									<option value="in">in</option>
-									<option value="in list">list</option>
+									<option value="in">in set</option>
+									<option value="in list">in list</option>
 								</select>
 							</div>
 							<div style="width: 40%;vertical-align: top;" class="input-group-btn">
@@ -76,10 +76,10 @@
 						</ul>
 					</div>
 					<div id="denominatorgrp" class="form-group">
-						<label>Percentage Denominator</label>
+						<label>Percentage Calculatori (Choose Denominator)</label>
 						<div style="vertical-align: top;" class="input-group-btn">
 							<select id="denominator" class="form-control disabled">
-								<option value="">Disabled</option>
+								<option value="">None Selected</option>
 							</select>
 						</div>
 					</div>
@@ -115,7 +115,7 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="form-group">
-						<label>Query</label>
+						<label>SQL Query</label>
 						<textarea readonly id="sqlquery" class="form-control"></textarea>
 					</div>
 				</div>
