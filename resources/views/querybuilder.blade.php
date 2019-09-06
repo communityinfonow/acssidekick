@@ -11,20 +11,20 @@
             <div class="row">
 				<div class="col-lg-4">
 					<div class="form-group">
-						<label>Dataset</label>
+						<label>Dataset and Year</label>
 						<select id="selectdataset" class="form-control"></select>
 					</div> 
 				</div>
 				<div class="col-lg-4">
 					<div class="form-group">
-						<label>Geography</label>
+						<label>Geography Type</label>
 						<select disabled id="selectgeography" class="form-control"></select>
 					</div> 
 				</div>
 				<div class="col-lg-4">
 					<div class="form-group">
-						<label>Concept</label>
-						<input disabled id="selectconcept" class="form-control autocomplete" placeholder="Start typing...">
+						<label>Topic or Table Name</label>
+						<input disabled id="selectconcept" class="form-control autocomplete" placeholder="Type Keywords or Table ID ...">
 					</div> 
 				</div>
             </div>

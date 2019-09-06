@@ -25,7 +25,11 @@ return [
 			//'BLKGRP' => 'block+group'
 		],
 		'geo_parents' => [
-			'COUNTY' => array('STATE')
+			'COUNTY' => array('STATE'),
+			'CDCURR' => array('STATE'),
+			'SDUNI' => array('STATE'),
+			'TRACT' => array('STATE','COUNTY'),
+			'BLKGRP' => array('STATE','COUNTY','TRACT')
 		]
 	],
 	'2016_acs5' => [
@@ -51,7 +55,11 @@ return [
 			'BLKGRP' => 'block+group'
 		],
 		'geo_parents' => [
-			'COUNTY' => array('STATE')
+			'COUNTY' => array('STATE'),
+			'CDCURR' => array('STATE'),
+			'SDUNI' => array('STATE'),
+			'TRACT' => array('STATE','COUNTY'),
+			'BLKGRP' => array('STATE','COUNTY','TRACT')
 		]
 	]
 ];

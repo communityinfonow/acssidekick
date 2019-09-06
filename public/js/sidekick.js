@@ -361,8 +361,7 @@ $(function() {
 	updatequerylist();
 	updatelistlist();
 
-	loadselectoptions("#selectdataset", "ajax/loadoptions/Dataset", "Select a dataset ...");
-    //loadselectoptions("#selectgeography", "ajax/loadoptions/Geography/" + $("#selectdataset").val(), "Select a geography ...");
+	loadselectoptions("#selectdataset", "ajax/loadoptions/Dataset", "Choose from dropdown ...");
 	$("#selectgeography").prop("disabled", true);
 	$("#selectconcept").val('');
 	$("#selectconcept").prop("disabled", true);
@@ -391,7 +390,7 @@ $(function() {
         }
 
 		// Reset app when dataset changes
-		loadselectoptions("#selectgeography", "ajax/loadoptions/Geography/" + $("#selectdataset").val(), "Select a geography ...");
+		loadselectoptions("#selectgeography", "ajax/loadoptions/Geography/" + $("#selectdataset").val(), "Choose from dropdown ...");
 		$("#selectconcept").val('');
 		$("#filtervariables").val('');
 		$("#selectvariables option").remove();
@@ -1195,7 +1194,7 @@ $(function() {
 			$("#queryname").html(' ('+ queryobj.name +')');	
 			$('#selectdataset option[value="'+queryobj.dataset+'"').prop('selected', true);
 			loadselectoptions("#selectgeography", "ajax/loadoptions/Geography/" + $("#selectdataset").val(), 
-				"Select a geography ...", queryobj.geography);
+				"Choose from dropdown ...", queryobj.geography);
 			//$('#selectgeography option[value="'+queryobj.geography+'"').prop('selected', true);
 			$('#selectgeography').prop('disabled', false);
 			$("#selectconcept").val(queryobj.concept);
