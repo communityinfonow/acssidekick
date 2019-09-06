@@ -8,7 +8,7 @@
                     <span class="icon-bar"></span>
                 </button>
 				<span class="navbar-brand">
-                	<a href="{{ URL::to('/') }}">{{ config('app.name') }}</a>
+                	<h3 style="margin:0;text-transform: uppercase;font-weight: bold;"><a href="{{ URL::to('/') }}">{{ config('app.name') }}</a></h3>
 				</span>
             </div>
             <!-- /.navbar-header -->

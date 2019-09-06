@@ -483,7 +483,7 @@ $(function() {
 		$("#datafiltervar option").remove();
 		$("#datafiltervar").append($('<option>', {
 			value: "",
-			text: "Select a variable ..."
+			text: "Select a field ..."
 		}));
 		$("#selectedvariables option").clone().appendTo('#datafiltervar');
 		$("#datafiltervar").prop("disabled", false);
@@ -500,7 +500,7 @@ $(function() {
 
 		$("#denominator").append($('<option>', {
 			value: "",
-			text: "Disabled"
+			text: "None Selected"
 		}));
 
 		$("#customaggexpr").append($('<option>', {
@@ -588,7 +588,7 @@ $(function() {
 
 		$("#denominator").append($('<option>', {
 			value: "",
-			text: "Disabled"
+			text: "None Selected"
 		}));
 
 		$("#customaggexpr").append($('<option>', {
@@ -656,7 +656,7 @@ $(function() {
 		$("#datafiltervar option").remove();
 		$("#datafiltervar").append($('<option>', {
 			value: "",
-			text: "Select a variable ..."
+			text: "Select a field ..."
 		}));
 		$("#selectedvariables option").clone().appendTo('#datafiltervar');
 		if ($("#datafiltervar option").length === 1) {
