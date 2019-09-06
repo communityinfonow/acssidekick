@@ -72,6 +72,7 @@ class GetMeta extends Command
 				exit(1);
 			} 
 
+
 			// Create the db entry for the dataset
 			if (!$dataset = Dataset::where('code', $dataset_code)->first()) {
 				$this->info('Creating entry for '.$dataset_code.' ...');
@@ -91,8 +92,11 @@ class GetMeta extends Command
 					if (strpos($varcode, '_') !== false) {
 						// This is a column (variable) in a table (concept)
 						$conceptcode=substr($varcode, 0, strpos($varcode, '_'));
-						$conceptlabel=trim(substr($var['concept'], strpos($varcode, '_')+1));
-		
+						//$conceptlabel=trim(substr($var['concept'], strpos($varcode, '_')+1));
+						$conceptlabel=trim($var['concept']);
+				
+			//			print $conceptlabel."\n";
+	
 						$concept_labels[$conceptcode]=$conceptlabel;
 
 						// Correct labeling for Total
@@ -170,7 +174,7 @@ class GetMeta extends Command
 							$concept = New concept;
 							$concept->dataset_id = $dataset->id;
 							$concept->code = $tbl;
-							$concept->label = $concept_labels[$tbl];
+							$concept->label = substr($concept_labels[$tbl], 0, 255);
 							$concept->save();
 
 							$this->info(' Created concept '.$dataset->code.'/'.$concept->code.' ...');

@@ -81,6 +81,7 @@ class getdata extends Command
 
 					// This is a column (variable) in a table (concept)
 					$conceptcode=substr($varcode, 0, strpos($varcode, '_'));
+					if ($conceptcode == 'GEO') { continue; }
 					$conceptlabel=trim(substr($var['concept'], strpos($varcode, '_')+1));
 		
 					$concepts[$conceptcode]=$conceptlabel;

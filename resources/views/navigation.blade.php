@@ -58,8 +58,15 @@
                     </ul>
                     <!-- /.dropdown-user -->
                 </li>
+				<!--<li><a href="{{ URL::asset('documents/sample.pdf') }}" target=_BLANK>HELP</a></li>-->
+				<li>
+					<a href="{{ URL::asset('documents/ACS Sidekick Technical Notes.pdf') }}" target=_BLANK>
+						<i style="color: #fd7e14; vertical-align: middle;" class="fa fa-question-circle fa-lg fa-fw"></i>
+					</a>
+				</li>
                 <!-- /.dropdown -->
             </ul>
+			<!--<div><a href="{{ URL::asset('documents/sample.pdf') }}" target=_BLANK>HELP</a></div>-->
             <!-- /.navbar-top-links -->
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
@@ -75,8 +82,9 @@
 						<li>&nbsp;</li> <!-- spacer -->
 						<li id="navadmin"> <a href="{{ URL::to('/admin') }}"><i class="fa fa-laptop fa-fw"></i> Admin</a></li>
 						@endif
-                    </ul
+                    </ul>
                 </div>
+				<!--<img width=256 src="{{ URL::asset('images/sidekick.gif') }}"></img>-->
                 <!-- /.sidebar-collapse -->
             </div>
             <!-- /.navbar-static-side -->
