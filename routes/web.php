@@ -148,6 +148,8 @@ Route::get('/ajax/loadoptions/{object}/{param1?}', function($object, $param1 = n
 	} elseif ($object == 'Geography' && $param1 != NULL) {
 		$ds = Dataset::where('code',$param1)->first();
 		$collection = $model::where('dataset_id', $ds->id)->orderBy('id')->get();
+	} elseif ($object == 'Dataset') {
+		$collection = $model::orderBy('id','desc')->get();
 	} else {
 		$collection = $model::all();
 	}
