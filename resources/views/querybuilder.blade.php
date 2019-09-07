@@ -76,7 +76,7 @@
 						</ul>
 					</div>
 					<div id="denominatorgrp" class="form-group">
-						<label>Percentage Calculatori (Choose Denominator)</label>
+						<label>Percentage Calculator (Choose Denominator)</label>
 						<div style="vertical-align: top;" class="input-group-btn">
 							<select id="denominator" class="form-control disabled">
 								<option value="">None Selected</option>
