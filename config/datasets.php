@@ -21,8 +21,8 @@ return [
 			//'CDCURR' => 'congressional+district',
 			//'SDUNI' => 'unified+school+district',
 			// 'ZCTA' => 'zip+code+tabulation+area'
-			'TRACT' => 'census+tract'
-			//'BLKGRP' => 'block+group'
+			'TRACT' => 'census+tract',
+			'BLKGRP' => 'block+group'
 		],
 		'geo_parents' => [
 			'COUNTY' => array('STATE'),
