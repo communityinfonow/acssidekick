@@ -8,6 +8,13 @@
 // Fix horizontal scroll for muti-select
 // per https://github.com/twbs/bootstrap/issues/12536
 //$("#select").siblings().find("div.dropdown-menu.open").css("overflow", "auto")
+//
+
+$(document).ajaxError(function( event, jqxhr, settings, thrownError ) {
+    if (jqxhr.status == 401 && window.location.pathname != '/login') {
+        window.location.replace("/login");
+    }
+});
 
 // Set up CSRF config
 $.ajaxSetup({
