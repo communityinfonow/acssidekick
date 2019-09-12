@@ -28,6 +28,7 @@
     <!-- MetisMenu CSS -->
     <link href="{{ URL::asset('lib/metisMenu/metisMenu.min.css') }}" rel="stylesheet">
 
+
     <!-- Custom CSS -->
     <link href="{{ URL::asset('css/sidekick.css') }}" rel="stylesheet">
 
@@ -44,7 +45,7 @@
 </head>
 
 <body>
-    <div id="wrapper">
+    <div style="width: 100%;" class="container-fluid" id="wrapper">
 		@include('navigation')
 		@include('modals')
 		@yield('content')
