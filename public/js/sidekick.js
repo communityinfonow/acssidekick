@@ -73,7 +73,13 @@ function buildqueryobject() {
 	};
 
 	$("#selectedvariables > option").each(function() {
-		var geo=$("#selectgeography").val();
+		var geo;
+		if ($("#selectgeography").val()) {
+			geo=$("#selectgeography").val();
+		} else {
+			geo=$("#loadedgeo").val();
+		}
+
 		var tbl=geo + "_" + this.value.substr(0, this.value.indexOf('_'));
 		if (queryobj.table == '') {
 			queryobj.table = tbl;
@@ -120,6 +126,8 @@ function loadselectoptions(selector, source, placeholder, selectedval) {
 					);
 				}
 		});	
+	}).done(function() {
+		//$(selector).change();
 	}).fail(function(jqXHR, textStatus, errorThrown) {
         console.log("error " + textStatus);
         console.log("incoming Text " + jqXHR.responseText);
@@ -376,10 +384,16 @@ $(function() {
 	$("#datafilterexpr").prop("disabled", true);
 	$("#datafiltervalue").prop("disabled", true);	
 	$("#denominator").prop("disabled", true);
+	$("#geoaggname").prop("disabled", true);
+	$("#geoaggname").val('');
 	$("#customaggname").prop("disabled", true);
 	$("#customaggname").val('');
-	$("#customaggexpr").prop("disabled", true);
+	$("#geoaggexpr").prop("disabled", true);
+	//$("#customaggexpr").prop("disabled", true);
+	$("#customaggexpr").val('');
+	$("#geoaggvalstxt").prop("disabled", true);
 	$("#customaggvalstxt").prop("disabled", true);
+	$("#geoaggvals").prop("disabled", true);
 	$("#customaggvals").prop("disabled", true);
 	$("#sqlquery").val('');
 
@@ -410,10 +424,15 @@ $(function() {
 		$("#datafiltervalue").prop("disabled", true);	
 		$("#filterlist").html("");
 		$("#datafilters").data("filters", []);
+		$("#geoaggname").prop("disabled", true);
+		$("#geoaggname").val('');
 		$("#customaggname").prop("disabled", true);
 		$("#customaggname").val('');
+		$("#geoaggvalstxt").prop("disabled", true);
 		$("#customaggvalstxt").prop("disabled", true);
+		$("#geoaggvals").prop("disabled", true);
 		$("#customaggvals").prop("disabled", true);
+		$("#geoagglist").html("");
 		$("#customagglist").html("");
 		$("#customaggs").data("customaggs", []);
 		$("#sqlquery").val('');
@@ -442,10 +461,15 @@ $(function() {
 		$("#datafiltervalue").prop("disabled", true);
 		$("#filterlist").html("");
 		$("#datafilters").data("filters", []);
+		$("#geoaggname").prop("disabled", true);
+		$("#geoaggname").val('');
 		$("#customaggname").prop("disabled", true);
 		$("#customaggname").val('');
+		$("#geoaggvalstxt").prop("disabled", true);
 		$("#customaggvalstxt").prop("disabled", true);
+		$("#geoaggvals").prop("disabled", true);
 		$("#customaggvals").prop("disabled", true);
+		$("#geoagglist").html("");
 		$("#customagglist").html("");
 		$("#customaggs").data("customaggs", []);
 		$("#sqlquery").val('');
@@ -497,10 +521,11 @@ $(function() {
 		$("#denominator").prop("disabled", false);
 		
 		// Enable custom aggregations 
+		$("#geoaggname").prop("disabled", false);
 		$("#customaggname").prop("disabled", false);
 		
 		// Rebuild options lists and checkboxes
-		$("#customaggexpr option").remove();
+		$("#geoaggexpr option").remove();
 		var denominator = $("#denominator").val();
 		$("#denominator option").remove();
 		$("#customaggcheckboxes").empty();
@@ -510,17 +535,9 @@ $(function() {
 			text: "None Selected"
 		}));
 
-		$("#customaggexpr").append($('<option>', {
+		$("#geoaggexpr").append($('<option>', {
 			value: "",
 			text: "..."
-		}));
-		$("#customaggexpr").append($('<option>', {
-			value: "COLUMNS",
-			text: "COLUMNS"
-		}));
-		$("#customaggexpr").append($('<option disabled>', {
-			value: "",
-			text: ""
 		}));
 
 		$("#selectedvariables>option").each(function(i, item){
@@ -528,16 +545,17 @@ $(function() {
 			// This should include geography and reference fields while excluding table data fields.
 
 			var colcode = item.value.substr(item.value.indexOf("_")+1);
-			if ($("#selectgeography option[value='" + colcode.replace('NAME','') +"']").length > 0) { // If the column is "KNOWNGEO" or "KNOWNGEONAME" 
+			// Build custom geo select options
+			if ($("#loadedgeo").val() == colcode.replace('NAME','') || $("#selectgeography option[value='" + colcode.replace('NAME','') +"']").length > 0) { // If the column is "KNOWNGEO" or "KNOWNGEONAME" 
 				// Add the reference column to the available aggregations dropdown
-				$("#customaggexpr").append($('<option>', {
+				$("#geoaggexpr").append($('<option>', {
 					value: item.value,
 					text: item.text
 				}));
 			} else { // Value columns
 				// Add a checkbox for the data column
 				$("#customaggcheckboxes").append(
-					'<input type="checkbox" id="cb-"' + item.value + ' name="' + item.value + '" value="' + item.text + '"> ' +
+					'<input style="max-width: 40%;" type="checkbox" id="cb-"' + item.value + ' name="' + item.value + '" value="' + item.text + '"> ' +
 					item.text + '<br />' + "\n"
 				);
 
@@ -588,7 +606,7 @@ $(function() {
 		$("#selectedvariables option:selected").remove().appendTo("#selectvariables");
 
 		// Rebuild custom aggregation options list
-		$("#customaggexpr option").remove();
+		$("#geoaggexpr option").remove();
 		denominator = $("#denominator").val();
 		$("#denominator option").remove();
 		$("#customaggcheckboxes").empty();
@@ -598,17 +616,9 @@ $(function() {
 			text: "None Selected"
 		}));
 
-		$("#customaggexpr").append($('<option>', {
+		$("#geoaggexpr").append($('<option>', {
 			value: "",
 			text: "..."
-		}));
-		$("#customaggexpr").append($('<option>', {
-			value: "COLUMNS",
-			text: "COLUMNS"
-		}));
-		$("#customaggexpr").append($('<option disabled>', {
-			value: "",
-			text: ""
 		}));
 
 		$("#selectedvariables>option").each(function(i, item){
@@ -617,7 +627,7 @@ $(function() {
 			var colcode = item.value.substr(item.value.indexOf("_")+1);
 			if ($("#selectgeography option[value='" + colcode.replace('NAME','') +"']").length > 0) {
 				// Add the reference column to the available aggregations dropdown
-				$("#customaggexpr").append($('<option>', {
+				$("#geoaggexpr").append($('<option>', {
 					value: item.value,
 					text: item.text
 				}));
@@ -647,8 +657,12 @@ $(function() {
 				'DIVISION', 'DIVISION NAME',
 				'STATE', 'STATE NAME', 
 				'COUNTY', 'COUNTY NAME',
-				'STATAREA', 'STATAREA NAME',
-				'ZCTA', 'ZCTA NAME'
+				'CSA', 'CSA NAME',
+				'CDCURR', 'CDCURR NAME',
+				'SDUNI', 'SDUNI NAME',
+				'ZCTA', 'ZCTA NAME',
+				'TRACT', 'TRACT NAME',
+				'BLKGRP', 'BLKGRP NAME'
 			];
 
 			for (var i = 0; i < overrides.length; i++) {
@@ -686,12 +700,14 @@ $(function() {
 
 		// Shut off the Custom Geo fields if there are no Selected Vars left
 		if ($("#selectedvariables option").length == 0) {
+			$("#geoaggname").prop("disabled", true);
 			$("#customaggname").prop("disabled", true);
 			$("#customaggmember").prop("disabled", true);
 
 			// Maybe this should trigger only with GEO change??
 			$("#customaggs").data("customaggs", []);
 			$("#customagglist li").remove();
+			$("#geoagglist li").remove();
 		}
 
 		// Update query object
@@ -871,16 +887,30 @@ $(function() {
 	});
 	
 	// Custom Aggregations 
+	$("#geoaggname").change(function() {
+		if ($("#geoaggname").val() !== "") {
+			$("#geoaggexpr").prop("disabled", false);
+			$("#geoaggvalstxt").prop("disabled", false);
+			$("#geoaggvals").prop("disabled", false);	
+		} else {
+			$("#geoaggexpr").prop("disabled", true);
+			$("#geoaggvalstxt").prop("disabled", true);
+			$("#geoaggvals").prop("disabled", true);
+		}
+	});
 	$("#customaggname").change(function() {
 		if ($("#customaggname").val() !== "") {
+			$("#customaggexpr").val('COLUMNS');
 			$("#customaggexpr").prop("disabled", false);
 			$("#customaggvalstxt").prop("disabled", false);
 			$("#customaggvals").prop("disabled", false);	
 		} else {
+			$("#customaggexpr").val('');
 			$("#customaggexpr").prop("disabled", true);
 			$("#customaggvalstxt").prop("disabled", true);
 			$("#customaggvals").prop("disabled", true);
 		}
+		$("#customaggexpr").change();
 	});
 
 	// Toggle checkbox area for COLUMN aggregations
@@ -895,18 +925,35 @@ $(function() {
 	});
 
 	// Toggle hide of textarea for cleaner formatting
+	$("#geoaggvalstxt").focus(function() {
+		$("#geoaggvalstxt").addClass('hidden');
+		$("#geoaggvals").removeClass('hidden');
+		$("#geoaggvals").focus();
+	});	
 	$("#customaggvalstxt").focus(function() {
 		$("#customaggvalstxt").addClass('hidden');
 		$("#customaggvals").removeClass('hidden');
 		$("#customaggvals").focus();
 	});	
 
+	$("#geoaggvals").blur(function() {
+		$("#geoaggvalstxt").val($("#geoaggvals").val().split(/\n/)[0]+" [...]");
+		$("#geoaggvals").addClass('hidden');
+		$("#geoaggvalstxt").removeClass('hidden');
+	});
 	$("#customaggvals").blur(function() {
 		$("#customaggvalstxt").val($("#customaggvals").val().split(/\n/)[0]+" [...]");
 		$("#customaggvals").addClass('hidden');
 		$("#customaggvalstxt").removeClass('hidden');
 	});
-
+	
+	$("#geoaggvals").change( function() {
+		if ($("#geoaggvals").val() !== "") {
+			$("#addgeoagg").removeClass("disabled");
+		} else {
+			$("#addgeomagg").addClass("disabled");
+		}
+	});
 	$("#customaggvals").change( function() {
 		if ($("#customaggvals").val() !== "") {
 			$("#addcustomagg").removeClass("disabled");
@@ -923,7 +970,7 @@ $(function() {
 		}
 	});
 
-	$("#addcustomagg").click(function() {
+	$("#addgeoagg, #addcustomagg").click(function() {
 	/*
 		var filter = {
 			id: filterid,
@@ -939,20 +986,33 @@ $(function() {
 		
 		// Set type based on options select
 		var customaggtype = "row";
-		if ($("#customaggexpr option:selected").text() == 'COLUMNS') {
+		if ($("#customaggexpr").val() == 'COLUMNS') {
 			customaggtype = "col";	
 		}
 
-		var customagg = {
-			id: customaggid,
-			type: customaggtype,	
-			key: $("#customaggexpr option:selected").val(),
-			keyname: $("#customaggexpr option:selected").text(),
-			alias: $("#customaggname").val(),
-			vals: $("#customaggvals").val(), 
-			cols: [], 
-			collist: ""
-		};
+		if (customaggtype == "row") {
+			var customagg = {
+				id: customaggid,
+				type: customaggtype,	
+				key: $("#geoaggexpr option:selected").val(),
+				keyname: $("#geoaggexpr option:selected").text(),
+				alias: $("#geoaggname").val(),
+				vals: $("#geoaggvals").val(), 
+				cols: [], 
+				collist: ""
+			};
+		} else {
+			var customagg = {
+				id: customaggid,
+				type: customaggtype,	
+				key: $("#customaggexpr").val(),
+				keyname: $("#customaggexpr").val(),
+				alias: $("#customaggname").val(),
+				vals: $("#customaggvals").val(), 
+				cols: [], 
+				collist: ""
+			};
+		}
 
 		// Transform into SQL ready list
 		var lines = [];
@@ -991,7 +1051,7 @@ $(function() {
 
 		// Update the visible list
 		if (customagg.type == 'row') {
-			$("#customagglist").append(
+			$("#geoagglist").append(
 				'<li id="' + customagg.id + 
 				'" style="padding:5px;" class="list-group-item clearfix">' + 
 				'<b>' + customagg.alias + '</b>: ' + customagg.keyname + ' <b>in</b> ' + customagg.vals +  
@@ -1009,18 +1069,27 @@ $(function() {
 		}
 
 		// Reset form state
+		$("#geoaggname").val("");
 		$("#customaggname").val("");
+		$("#geoaggexpr").val("");
 		$("#customaggexpr").val("");
+		$("#geoaggvalstxt").val("");
 		$("#customaggvalstxt").val("");
+		$("#geoaggvals").val("");
 		$("#customaggvals").val("");
 		$("#customaggcheckboxes").addClass('hidden');
 		$("#customaggcheckboxes :checkbox:checked").each(function() {
 			this.checked = false;
 		});
+		$("#geoaggvalstxt").removeClass('hidden');
 		$("#customaggvalstxt").removeClass('hidden');
+		$("#geoaggexpr").prop("disabled", true);
 		$("#customaggexpr").prop("disabled", true);
+		$("#geoaggvalstxt").prop("disabled", true);
 		$("#customaggvalstxt").prop("disabled", true);
+		$("#geoaggvals").prop("disabled", true);
 		$("#customaggvals").prop("disabled", true);
+		$("#addgeoagg").addClass("disabled");
 		$("#addcustomagg").addClass("disabled");
 
 		// Update query object
@@ -1034,7 +1103,7 @@ $(function() {
 	// Custom Agg delete buttons
 	// We need a delegated handler on something that exists in the DOM.  The buttons 
 	// themselves are added dynamically so outside the reach of $.
-	$("#customagglist").on('click', '.customaggdel', function() {
+	$("#geoagglist, #customagglist").on('click', '.customaggdel', function() {
 		var listid=$(this).closest('li').attr('id');
 		
 		// Remove from customaggs data store
@@ -1203,7 +1272,10 @@ $(function() {
 			loadselectoptions("#selectgeography", "ajax/loadoptions/Geography/" + $("#selectdataset").val(), 
 				"Choose from dropdown ...", queryobj.geography);
 			//$('#selectgeography option[value="'+queryobj.geography+'"').prop('selected', true);
+			$('#loadedgeo').val(queryobj.geography);
 			$('#selectgeography').prop('disabled', false);
+
+
 			$("#selectconcept").val(queryobj.concept);
 			$("#selectconcept").prop('disabled', false);
 			$("#selectvariables option").remove();
@@ -1214,6 +1286,7 @@ $(function() {
 			queryobj.varsselected.forEach(function(item) {
 				$("#selectedvariables").append($('<option>', item));
 			});
+			
 			$("#datafilters").data("filters", queryobj.datafilters);
 			$("#filterlist").html("");
 			queryobj.datafilters.forEach(function(filter) {
@@ -1226,11 +1299,12 @@ $(function() {
 				); 
 			});
 			$("#customaggs").data("customaggs", queryobj.customaggs);
+			$("#geoagglist").html("");
 			$("#customagglist").html("");
 			queryobj.customaggs.forEach(function(customagg) {
 				// Update the visible list
 				if (customagg.type == 'row') {
-					$("#customagglist").append(
+					$("#geoagglist").append(
 						'<li id="' + customagg.id + 
 						'" style="padding:5px;" class="list-group-item clearfix">' + 
 						'<b>' + customagg.alias + '</b>: ' + customagg.keyname + ' <b>in</b> ' + customagg.vals +  
@@ -1248,7 +1322,6 @@ $(function() {
 				}
 			});
 			$("#selectvariables").trigger('dblclick');
-
 			$("#denominator").val(queryobj.denominator);
 		});
 	});

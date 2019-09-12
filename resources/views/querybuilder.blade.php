@@ -19,6 +19,7 @@
 					<div class="form-group">
 						<label>Geography Type</label>
 						<select disabled id="selectgeography" class="form-control"></select>
+						<input type=hidden id="loadedgeo">
 					</div> 
 				</div>
 				<div class="col-lg-4">
@@ -30,15 +31,15 @@
             </div>
 			<div class="row">
 				<div class="col-lg-6">
-					<div class="form-group">
+					<div class="form-group"> 
 						<label>Available Fields</label>
 						<input id="filtervariables" class="form-control" placeholder="Filter ...">
-						<select id="selectvariables" multiple size=15 class="form-control">
+						<select id="selectvariables" multiple size=15 class="form-control" style="whitespace: wrap;">
 						</select>
 					</div>
 				</div>
 				<div class="col-lg-6">
-					<div class="form-group">
+					<div class="form-group" style="max-width: 100%;">
 						<label>Selected Fields</label>
 						<input id="filterselected" class="form-control" placeholder="Filter ...">
 						<select id="selectedvariables" multiple size=15 class="form-control">
@@ -85,21 +86,48 @@
 					</div>
 				</div>
 				<div class="col-lg-6">
-					<div id="customaggs" class="form-group">
-						<label>Aggregations</label>
+					<div id="geoaggs" class="form-group">
+						<label>Aggregate Geographies</label>
 						<div style="width: 100%;" class="input-group">
 							<div style="width: 40%; vertical-align: top;" class="input-group-btn">
-								<input id="customaggname" class="form-control" placeholder="Alias ...">
+								<input id="geoaggname" class="form-control" placeholder="New geo name ...">
 							</div>
 							<div style="width: 20%;vertical-align: top;" class="input-group-btn">
+								<select style="-moz-appearance: none; -webkit-appearance: none; appearance: none;" id="geoaggexpr" class="form-control">
+									<option value="">...</option>
+								</select>
+							</div>
+							<div style="max-width: 40%; width: 40%; vertical-align: top;" class="input-group-btn">
+								<textarea id="geoaggvals" class="form-control hidden" placeholder="One value per line ..."></textarea>
+								<input id="geoaggvalstxt" class="form-control" placeholder="One value per line ...">
+							</div>
+							<div style="vertical-align: top;" class="input-group-btn">
+								<button id="addgeoagg" class="btn btn-primary disabled">
+									<i class="fa fa-plus" aria-hidden="true"></i>
+								</button>
+							</div>
+						</div>
+						<ul id="geoagglist" class="list-group">
+						</ul>
+					</div>
+					
+					<div id="customaggs" class="form-group">
+						<label>Aggregate Fields</label>
+						<div style="width: 100%;" class="input-group">
+							<div style="width: 40%; vertical-align: top;" class="input-group-btn">
+								<input id="customaggname" class="form-control" placeholder="New field name ...">
+								<input type="hidden" id="customaggexpr">
+							</div>
+							<!--<div style="width: 20%;vertical-align: top;" class="input-group-btn">
 								<select style="-moz-appearance: none; -webkit-appearance: none; appearance: none;" id="customaggexpr" class="form-control">
 									<option value="">...</option>
 								</select>
 							</div>
-							<div style="width: 40%; vertical-align: top;" class="input-group-btn">
-								<textarea id="customaggvals" class="form-control hidden" placeholder="One value per line ..."></textarea>
-								<div style="height: 90px; overflow: auto;" id="customaggcheckboxes" class="form-control hidden"></div>
-								<input id="customaggvalstxt" class="form-control" placeholder="One value per line ...">
+							!-->
+							<div style="max-width: 60%; width: 60%; vertical-align: top;" class="input-group-btn">
+								<textarea id="customaggvals" class="form-control hidden" placeholder="Select fields ..."></textarea>
+								<div style="width: 100%; max-width: 100%; height: 90px; overflow: auto;" id="customaggcheckboxes" class="form-control hidden"></div>
+								<input id="customaggvalstxt" class="form-control" placeholder="Select fields ...">
 							</div>
 							<div style="vertical-align: top;" class="input-group-btn">
 								<button id="addcustomagg" class="btn btn-primary disabled">
