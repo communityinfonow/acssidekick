@@ -721,9 +721,13 @@ $(function() {
 		if ($("#datafiltervar option:selected").val() !== "") {
 			$("#datafilterexpr").prop("disabled", false);
 			$("#datafiltervalue").prop("disabled", false);	
+			if ($("#datafiltervalue").val() != "") {
+				$("#adddatafilter").removeClass("disabled");		
+			}
 		} else {
 			$("#datafilterexpr").prop("disabled", true);	
 			$("#datafiltervalue").prop("disabled", true);
+			$("#adddatafilter").addClass("disabled");
 		}
 	});
 
@@ -766,7 +770,7 @@ $(function() {
 
 		// We have to recreate this binding since we recreated the dom element.
 		// The one below (outside the closure) also has to be there.	
-		$("#datafiltervalue").change( function() {
+		$("#datafiltervalue").bind('input propertychange', function() {
 			if ($("#datafiltervalue").val() !== "") {
 				$("#adddatafilter").removeClass("disabled");
 			} else {
@@ -775,7 +779,7 @@ $(function() {
 		});
 	});
 
-	$("#datafiltervalue").change( function() {
+	$("#datafiltervalue").bind('input propertychange', function() {
 		if ($("#datafiltervalue").val() !== "") {
 			$("#adddatafilter").removeClass("disabled");
 		} else {
@@ -886,29 +890,79 @@ $(function() {
 		});
 	});
 	
-	// Custom Aggregations 
-	$("#geoaggname").change(function() {
+	// Geo Aggregations 
+	$("#geoaggname").bind('input propertychange', function() {
 		if ($("#geoaggname").val() !== "") {
 			$("#geoaggexpr").prop("disabled", false);
-			$("#geoaggvalstxt").prop("disabled", false);
-			$("#geoaggvals").prop("disabled", false);	
+			if ($("#geoaggexpr").val() != '') {
+				$("#geoaggvals").prop("disabled", false);
+				$("#geoaggvalstxt").prop("disabled", false);
+			}
+			if ($("#geoaggvals").val() !== "" && $("#geoaggexpr").val() != '') {
+				$("#addgeoagg").removeClass("disabled");$("#addgeoagg").removeClass("disabled");
+			}
 		} else {
 			$("#geoaggexpr").prop("disabled", true);
-			$("#geoaggvalstxt").prop("disabled", true);
 			$("#geoaggvals").prop("disabled", true);
+			$("#geoaggvalstxt").prop("disabled", true);
+			$("#addgeoagg").addClass("disabled");
 		}
 	});
-	$("#customaggname").change(function() {
+
+	$("#geoaggexpr").change(function() {
+		if ($("#geoaggexpr").val() !== '') {
+			$("#geoaggvalstxt").prop("disabled", false);
+			$("#geoaggvals").prop("disabled", false);
+			if ($("#geoaggname").val() !== "" && ("#geoaggvals").val() !== "") {
+				$("#addgeoagg").removeClass("disabled");
+			}
+		} else {
+			$("#geoaggvals").prop("disabled", true);
+			$("#geoaggvalstxt").prop("disabled", true);
+			$("#addgeoagg").addClass("disabled");
+		}
+	});
+	
+	$("#geoaggvalstxt").focus(function() {
+		$("#geoaggvalstxt").addClass('hidden');
+		$("#geoaggvals").removeClass('hidden');
+		$("#geoaggvals").focus();
+	});	
+
+	$("#geoaggvals").blur(function() {
+		$("#geoaggvalstxt").val($("#geoaggvals").val().split(/\n/)[0]+" [...]");
+		$("#geoaggvals").addClass('hidden');
+		$("#geoaggvalstxt").removeClass('hidden');
+	});
+
+	$("#geoaggvals").bind('input propertychange', function() {
+		if ($("#geoaggvals").val() !== "" && $("#geoaggexpr").val() != '') {
+			$("#addgeoagg").removeClass("disabled");
+		} else {
+			$("#addgeoagg").addClass("disabled");
+		}
+	});
+
+	$("#geoaggvals").blur(function() {
+		$("#geoaggvalstxt").val($("#geoaggvals").val().split(/\n/)[0]+" [...]");
+		$("#geoaggvals").addClass('hidden');
+		$("#geoaggvalstxt").removeClass('hidden');
+	});
+
+	// Column aggregration
+	$("#customaggname").bind('input propertychange', function() {
 		if ($("#customaggname").val() !== "") {
 			$("#customaggexpr").val('COLUMNS');
-			$("#customaggexpr").prop("disabled", false);
 			$("#customaggvalstxt").prop("disabled", false);
 			$("#customaggvals").prop("disabled", false);	
+			if ($("#customaggcheckboxes :checkbox:checked").length > 1) {
+				$("#addcustomagg").removeClass("disabled");
+			}
 		} else {
 			$("#customaggexpr").val('');
-			$("#customaggexpr").prop("disabled", true);
 			$("#customaggvalstxt").prop("disabled", true);
 			$("#customaggvals").prop("disabled", true);
+			$("#addcustomagg").addClass("disabled");
 		}
 		$("#customaggexpr").change();
 	});
@@ -925,35 +979,18 @@ $(function() {
 	});
 
 	// Toggle hide of textarea for cleaner formatting
-	$("#geoaggvalstxt").focus(function() {
-		$("#geoaggvalstxt").addClass('hidden');
-		$("#geoaggvals").removeClass('hidden');
-		$("#geoaggvals").focus();
-	});	
 	$("#customaggvalstxt").focus(function() {
 		$("#customaggvalstxt").addClass('hidden');
 		$("#customaggvals").removeClass('hidden');
 		$("#customaggvals").focus();
 	});	
 
-	$("#geoaggvals").blur(function() {
-		$("#geoaggvalstxt").val($("#geoaggvals").val().split(/\n/)[0]+" [...]");
-		$("#geoaggvals").addClass('hidden');
-		$("#geoaggvalstxt").removeClass('hidden');
-	});
 	$("#customaggvals").blur(function() {
 		$("#customaggvalstxt").val($("#customaggvals").val().split(/\n/)[0]+" [...]");
 		$("#customaggvals").addClass('hidden');
 		$("#customaggvalstxt").removeClass('hidden');
 	});
-	
-	$("#geoaggvals").change( function() {
-		if ($("#geoaggvals").val() !== "") {
-			$("#addgeoagg").removeClass("disabled");
-		} else {
-			$("#addgeomagg").addClass("disabled");
-		}
-	});
+
 	$("#customaggvals").change( function() {
 		if ($("#customaggvals").val() !== "") {
 			$("#addcustomagg").removeClass("disabled");
@@ -970,6 +1007,7 @@ $(function() {
 		}
 	});
 
+	// Combined add handler
 	$("#addgeoagg, #addcustomagg").click(function() {
 	/*
 		var filter = {
