@@ -9,6 +9,7 @@
                 <!-- /.col-lg-12 -->
             </div>
             <div class="row">
+				<div><h4 style="position: relative; display: block; text-align: center;" class="divline"><span>Required</span></h4></div>
 				<div class="col-lg-4">
 					<div class="form-group">
 						<label>Dataset and Year</label>
@@ -48,6 +49,7 @@
 				</div>
 			</div>
 			<div class="row">
+				<div><h4 style="position: relative; display: block; text-align: center;" class="divline"><span>Optional</span></h4></div>
 				<div class="col-lg-6">
 					<div id="datafilters" class="form-group">
 						<label>Data Filters</label>
@@ -141,6 +143,7 @@
 				</div>
 			</div>
 			<div class="row">
+				<div><h4 style="position: relative; display: block; text-align: center;" class="divline"><span>Results</span></h4></div>
 				<div class="col-lg-12">
 					<div class="form-group">
 						<label>SQL Query</label>
