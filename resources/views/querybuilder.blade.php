@@ -31,7 +31,7 @@
 				</div>
             </div>
 			<div class="row">
-				<div class="col-lg-6">
+				<div style="width: 48%;" class="col-lg-5">
 					<div class="form-group"> 
 						<label>Available Fields</label>
 						<input id="filtervariables" class="form-control" placeholder="Filter ...">
@@ -39,7 +39,11 @@
 						</select>
 					</div>
 				</div>
-				<div class="col-lg-6">
+				<div style="text-align: center; width: 4%;" class="col-lg-2">
+					<i style="color: gray; margin-top: 140px; margin-bottom: 10px;" class="fa fa-2x fa-arrow-right"></i><br />
+					<i style="color: gray;" class="fa fa-2x fa-arrow-left"></i>
+				</div>
+				<div style="width: 48%;" class="col-lg-5">
 					<div class="form-group" style="max-width: 100%;">
 						<label>Selected Fields</label>
 						<input id="filterselected" class="form-control" placeholder="Filter ...">
