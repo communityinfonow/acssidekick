@@ -150,6 +150,8 @@ Route::get('/ajax/loadoptions/{object}/{param1?}', function($object, $param1 = n
 		$collection = $model::where('dataset_id', $ds->id)->orderBy('id')->get();
 	} elseif ($object == 'Dataset') {
 		$collection = $model::orderBy('id','desc')->get();
+	} elseif ($object == 'Concept') {
+		$collection = $model::orderBy('code','desc')->get();
 	} else {
 		$collection = $model::all();
 	}
@@ -158,6 +160,11 @@ Route::get('/ajax/loadoptions/{object}/{param1?}', function($object, $param1 = n
 		if ($object == 'Geography') {
 			$return[]=array(
 				'label' => $item->code,
+				'value' => $item->code
+			);
+		} else if ($object == 'Concept') {
+			$return[]=array(
+				'label' => "(".$item->code.") ".$item->label,
 				'value' => $item->code
 			);
 		} else {
