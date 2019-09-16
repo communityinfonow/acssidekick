@@ -16,7 +16,7 @@
             <div class="row">
                 <div class="col-lg-12">
 					<h4>Branch status</h4>
-					<textarea size=10 style="width: 100%;" disabled class="form-control">
+					<textarea rows=10 style="width: 100%;" disabled class="form-control">
 @php
 	$cmd="cd ..; git status -uno";
 	passthru($cmd);	
