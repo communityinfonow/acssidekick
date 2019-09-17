@@ -40,8 +40,8 @@
 					</div>
 				</div>
 				<div style="text-align: center; width: 4%;" class="col-lg-2">
-					<i style="color: gray; margin-top: 140px; margin-bottom: 10px;" class="fa fa-2x fa-arrow-right"></i><br />
-					<i style="color: gray;" class="fa fa-2x fa-arrow-left"></i>
+					<i id="selectarrow" style="color: gray; margin-top: 140px; margin-bottom: 10px;" class="fa fa-2x fa-arrow-right"></i><br />
+					<i id="selectedarrow" style="color: gray;" class="fa fa-2x fa-arrow-left"></i>
 				</div>
 				<div style="width: 48%;" class="col-lg-5">
 					<div class="form-group" style="max-width: 100%;">

@@ -575,6 +575,11 @@ $(function() {
 		});
 	});
 
+	// Fire selectvars dblclick with arrow
+	$("#selectarrow").click(function() {
+		$("#selectvariables").trigger('dblclick');
+	});
+
 	// Selected variables filter	
     $("#filterselected").keyup(function() {
         var filter=$(this).val().toLowerCase();
@@ -716,6 +721,11 @@ $(function() {
 			$("#sqlquery").val(data).trigger("change");
 		});
 	}); // end $("selectedvars").dblClick()
+
+	// Fire selectedvars dblclick with arrow
+	$("#selectedarrow").click(function() {
+		$("#selectedvariables").trigger('dblclick');
+	});
 
 	$("#datafiltervar").change(function() {
 		if ($("#datafiltervar option:selected").val() !== "") {
