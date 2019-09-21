@@ -21,16 +21,6 @@ $.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
-	/*statusCode: {
-		// If a session times out and then runs ajax, this should
-		// redirect them to the login page
-		401: function() {
-			if (location.href != 'login') { // or else we will end up in a loop
-				location.href = 'login';
-			}
-		}
-	}
-	*/
 });
 
 /* Global functions */
@@ -492,8 +482,15 @@ $(function() {
         	}
 		}
     });
+	
+	$("#selectconcept").on("autocompleteselect", function(event, ui){
+		console.log(ui);
+        var sel_ds=$("#selectdataset").val();
+		var sel_geo=$("#selectgeography").val();
+		loadselectoptions("#selectvariables", "ajax/loadvars?ds="+sel_ds+"&geo="+sel_geo+"&concept="+ui.item.value);
+	});
 
-    // Variables filter
+	// Variables filter
     $("#filtervariables").keyup(function() {
         var filter=$(this).val().toLowerCase();
         $("#selectvariables>option").each(function(){
