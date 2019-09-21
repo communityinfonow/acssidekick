@@ -1,4 +1,7 @@
 		<!-- Navigation -->
+		<div class="branding-header jumbotron d-flex align-items-center">
+			<h1>Community Information Now</h1>
+		</div>
 		<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0;">
 			<div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -11,17 +14,19 @@
                 	<h3 style="margin:0;text-transform: uppercase;font-weight: bold;"><a href="{{ URL::to('/') }}">{{ config('app.name') }}</a></h3>
 				</span>
             </div>
-            <!-- /.navbar-header -->
+			<ul class="nav navbar-top-links">
+				<li><a href="https://cinow.info" target=_blank>About the ACS Sidekick</a></li>
+				<li><a href="https://cinow.info/who-we-are" target=_blank>About CI:Now</a></li>
+				<li><a href="{{ URL::asset('documents/ACS%20Sidekick%20Technical%20Notes.pdf') }} " target=_blank>User Notes</a></li>
+				<li><a href="https://cinow.info/contact/" target=_blank>Contact Us</a></li>
             @if (Auth::guest())
-			<ul class="nav navbar-top-links navbar-right">
-                <li><a href="{{ route('login') }}">Login</a></li>
-                <li><a href="{{ route('register') }}">Register</a></li>
+                <li class="navbar-right"><a href="{{ route('login') }}">Login</a></li>
+                <li class="navbar-right"><a href="{{ route('register') }}">Register</a></li>
 			</ul>
 			@elseif (Auth::user()->hasRole('pending'))
-            <ul class="nav navbar-top-links navbar-right">
-				<li>Welcome, {{ Auth::user()->name }}!</li>
-                <li class="dropdown">
+                <li class="navbar-right dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+						Welcome, {{ Auth::user()->name }}!
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
@@ -37,10 +42,9 @@
                 <!-- /.dropdown -->
             </ul>
             @else
-            <ul class="nav navbar-top-links navbar-right">
-				<li>Welcome, {{ Auth::user()->name }}!</li>
-                <li class="dropdown">
+                <li class="navbar-right">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+						Welcome, {{ Auth::user()->name }}!
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
@@ -58,12 +62,6 @@
                     </ul>
                     <!-- /.dropdown-user -->
                 </li>
-				<!--<li><a href="{{ URL::asset('documents/sample.pdf') }}" target=_BLANK>HELP</a></li>-->
-				<li>
-					<a href="{{ URL::asset('documents/ACS Sidekick Technical Notes.pdf') }}" target=_BLANK>
-						<i style="color: #fd7e14; vertical-align: middle;" class="fa fa-question-circle fa-lg fa-fw"></i>
-					</a>
-				</li>
                 <!-- /.dropdown -->
             </ul>
 			<!--<div><a href="{{ URL::asset('documents/sample.pdf') }}" target=_BLANK>HELP</a></div>-->
