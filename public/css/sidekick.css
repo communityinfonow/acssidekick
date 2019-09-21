@@ -103,6 +103,29 @@ h4.divline span {
     border-left: 1px solid #e7e7e7;
   }
 }
+
+.branding-header {
+	background:url('../images/cinow_header_skyline.jpg') no-repeat center center;
+	background-size: 100% auto;
+	height: 147px;
+	margin: 0;
+}
+
+.branding-header h1 {
+	font-family: "Raleway", sans-serif;
+	font-size: 31.5px;
+	font-weight: 700;
+	text-transform: uppercase;
+	color: #ffffff;
+	background-color: #005272;
+	text-align: center;
+	margin:auto;
+	vertical-align: center;
+	height: 50px;
+	line-height: 50px;
+	width: 75%;
+}
+
 .navbar-top-links {
   margin-right: 0;
 }
