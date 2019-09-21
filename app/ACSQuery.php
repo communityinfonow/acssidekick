@@ -147,13 +147,12 @@ class ACSQuery {
 								$nmoecol = $nmoeexpr; 
 								$dmoecol = strtok($col, '.').".".$denommoecode;
 
-								/*
 								$qry .= " ROUND(";	
 								$qry .= "(1/".$dvalcol.") * SQRT(POW(".$nmoecol.",2)+(POW((".$nvalcol."/".$dvalcol."),2) * POW(".$dmoecol.",2)))";
 								$qry .= "*100,2)";
-								*/
 								
 								// Use jeremy's simplified formula	
+								/*
 								$qry .= " ROUND(";
 								$qry .= "SQRT(";
 								$qry .= "POW(SQRT(SUM(POW(".$nmoecol.",2))),2) - "; 
@@ -161,7 +160,7 @@ class ACSQuery {
 								$qry .= "POW(SQRT(SUM(POW(".$dmoecol.",2)))*.01,2) ";	
 								$qry .= ") / SUM(".$dvalcol.") * 100";
 								$qry .= ", 2)";
-
+								*/
 								$qry .= " AS `".$customagg['alias']." (MOE PCT)`,\n";
 							}
 						}
