@@ -64,7 +64,8 @@
 								</select>
 							</div>
 							<div style="width: 15%;vertical-align: top;" class="input-group-btn">
-								<select style="-moz-appearance: none; -webkit-appearance: none; appearance: none;" id="datafilterexpr" class="form-control">
+								<!--<select style="-moz-appearance: none; -webkit-appearance: none; appearance: none;" id="datafilterexpr" class="form-control">-->
+								<select id="datafilterexpr" class="form-control">
 									<option value="is">is</option>
 									<option value="in">in set</option>
 									<option value="in list">in list</option>
@@ -99,7 +100,8 @@
 								<input id="geoaggname" class="form-control" placeholder="New geo name ...">
 							</div>
 							<div style="width: 20%;vertical-align: top;" class="input-group-btn">
-								<select style="-moz-appearance: none; -webkit-appearance: none; appearance: none;" id="geoaggexpr" class="form-control">
+								<!--<select style="-moz-appearance: none; -webkit-appearance: none; appearance: none;" id="geoaggexpr" class="form-control">-->
+								<select id="geoaggexpr" class="form-control">
 									<option value="">...</option>
 								</select>
 							</div>

@@ -92,10 +92,18 @@ class ACSQuery {
 							$nmoecol = strtok($col, '.').".".$moecode;
 							$dmoecol = strtok($col, '.').".".$denommoecode;
 							
-							$qry .= " ROUND(";	
-							$qry .= "(1/".$dvalcol.") * SQRT(POW(".$nmoecol.",2)+(POW((".$nvalcol."/".$dvalcol."),2) * POW(".$dmoecol.",2)))";
-							$qry .= "*100,2)";
+							//$qry .= " ROUND(";	
+							//$qry .= "(1/".$dvalcol.") * SQRT(POW(".$nmoecol.",2)+(POW((".$nvalcol."/".$dvalcol."),2) * POW(".$dmoecol.",2)))";
+							//$qry .= "*100,2)";
 										
+							$qry .= " ROUND(";
+							$qry .= "SQRT(";
+							$qry .= "POW(".$nmoecol.",2) - "; 
+							$qry .= "POW(".$nvalcol." / ".$dvalcol.",2) * "; 
+							$qry .= "POW(".$dmoecol.",2) ";	
+							$qry .= ") / ".$dvalcol." * 100";
+							$qry .= ", 2)";
+							
 							$qry .= str_replace('MOE', 'MOE PCT', $moelabel).",\n";
 						}
 					}
@@ -147,20 +155,19 @@ class ACSQuery {
 								$nmoecol = $nmoeexpr; 
 								$dmoecol = strtok($col, '.').".".$denommoecode;
 
-								$qry .= " ROUND(";	
-								$qry .= "(1/".$dvalcol.") * SQRT(POW(".$nmoecol.",2)+(POW((".$nvalcol."/".$dvalcol."),2) * POW(".$dmoecol.",2)))";
-								$qry .= "*100,2)";
+								//$qry .= " ROUND(";	
+								//$qry .= "(1/".$dvalcol.") * SQRT(POW(".$nmoecol.",2)+(POW((".$nvalcol."/".$dvalcol."),2) * POW(".$dmoecol.",2)))";
+								//$qry .= "*100,2)";
 								
 								// Use jeremy's simplified formula	
-								/*
 								$qry .= " ROUND(";
 								$qry .= "SQRT(";
-								$qry .= "POW(SQRT(SUM(POW(".$nmoecol.",2))),2) - "; 
-								$qry .= "POW((".$nvalcol." * 100) / SUM(".$dvalcol."),2) * "; 
-								$qry .= "POW(SQRT(SUM(POW(".$dmoecol.",2)))*.01,2) ";	
-								$qry .= ") / SUM(".$dvalcol.") * 100";
+								$qry .= "POW(".$nmoecol.",2) - "; 
+								$qry .= "POW(".$nvalcol." / ".$dvalcol.",2) * "; 
+								$qry .= "POW(".$dmoecol.",2) ";	
+								$qry .= ") / ".$dvalcol." * 100";
 								$qry .= ", 2)";
-								*/
+
 								$qry .= " AS `".$customagg['alias']." (MOE PCT)`,\n";
 							}
 						}
@@ -331,14 +338,14 @@ class ACSQuery {
 								}
 
 								// The aggregated MOE
-								$nmoeexpr = " ROUND(SQRT(SUM(POW((ROUND(SQRT(";
+								$nmoeexpr = " SQRT(SUM(POW((ROUND(SQRT(";
 								foreach ($colagg['cols'] as $member) {
 									$colvartbl=strtok($qryobj['table'], "_")."_".strtok($member['column'], '_');
 									$nmoeexpr .= 'POW('.$colvartbl.'.'.$this->getMOECol($member['column'],$qryobj['db']) .',2) + ';
 								}
 								$nmoeexpr = trim($nmoeexpr, "+ ");
-								$nmoeexpr .= "))),2))))";
-								$qry .= $nmoeexpr." AS `".$colagg['alias']." (MOE)`,\n";
+								$nmoeexpr .= "))),2)))";
+								$qry .= " ROUND(".$nmoeexpr.") AS `".$colagg['alias']." (MOE)`,\n";
 								
 								/*
 								$qry .= " ROUND(SQRT(SUM(POW((ROUND(SQRT(";
@@ -359,9 +366,19 @@ class ACSQuery {
 										$nmoecol = $nmoeexpr; 
 										$dmoecol = strtok($col, '.').".".$denommoecode;
 		
-										$qry .= " ROUND(";	
-										$qry .= "(1/".$dvalcol.") * SQRT(POW(".$nmoecol.",2)+(POW((".$nvalcol."/".$dvalcol."),2) * POW(".$dmoecol.",2)))";
-										$qry .= "*100,2)";
+										//$qry .= " ROUND(";	
+										//$qry .= "(1/".$dvalcol.") * SQRT(POW(".$nmoecol.",2)+(POW((".$nvalcol."/".$dvalcol."),2) * POW(".$dmoecol.",2)))";
+										//$qry .= "*100,2)";
+										
+										// Use jeremy's simplified formula	
+										$qry .= " ROUND(";
+										$qry .= "SQRT(";
+										$qry .= "POW(".$nmoecol.",2) - "; 
+										$qry .= "POW(".$nvalcol." / SUM(".$dvalcol."),2) * "; 
+										$qry .= "POW(SQRT(SUM(POW(".$dmoecol.",2))),2) ";	
+										$qry .= ") / SUM(".$dvalcol.") * 100";
+										$qry .= ", 2)";
+
 										$qry .= " AS `".$colagg['alias']." (MOE PCT)`,\n";
 									}
 								}
