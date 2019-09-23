@@ -15,9 +15,10 @@
 				</span>
             </div>
 			<ul class="nav navbar-top-links">
-				<li><a href="https://cinow.info" target=_blank>About the ACS Sidekick</a></li>
-				<li><a href="https://cinow.info/who-we-are" target=_blank>About CI:Now</a></li>
-				<li><a href="{{ URL::asset('documents/ACS%20Sidekick%20Technical%20Notes.pdf') }} " target=_blank>User Notes</a></li>
+				<li><a href="https://cinow.info/acs-sidekick/" target=_blank>About the ACS Sidekick</a></li>
+				<li><a href="https://cinow.info/who-we-are/" target=_blank>About CI:Now</a></li>
+				<!--<li><a href="{{ URL::asset('documents/ACS%20Sidekick%20Technical%20Notes.pdf') }} " target=_blank>User Notes</a></li>-->
+				<li><a href="https://cinow.info/acs-sidekick-user-notes/" target=_blank>User Notes</a></li>
 				<li><a href="https://cinow.info/contact/" target=_blank>Contact Us</a></li>
             @if (Auth::guest())
                 <li class="navbar-right"><a href="{{ route('login') }}">Login</a></li>
