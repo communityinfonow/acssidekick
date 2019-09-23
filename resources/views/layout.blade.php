@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 @if (env('GA_TRACK_ID') && env('GA_TRACK_ID') != '')
+	<script async src="https://www.googletagmanager.com/gtag/js?id={{ env('GA_TRACK_ID') }}"></script>
 	<script>
 		window.dataLayer = window.dataLayer || [];
 		function gtag(){dataLayer.push(arguments);}
