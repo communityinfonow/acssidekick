@@ -38,6 +38,8 @@ Route::get('/admin', function() {
 	return view('admin');
 })->middleware('auth');
 
+// Email verification support route
+Route::get('register/verify/{token}','Auth\RegisterController@verify');
 
 // Ajax routes
 Route::get('/ajax/getusers', function(Request $request) {

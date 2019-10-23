@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'role', 'email_token',
     ];
 
     /**
@@ -30,4 +30,15 @@ class User extends Authenticatable
 	public function hasRole($role) {
 		return $this->role == $role;
 	}
+
+	// Upgrade from "pending" to "user" on self-verification
+	public function verified() {
+		if ($this->hasRole('pending')) {
+			$this->role = 'user';
+			$this->email_token = null;
+
+			$this->save();
+		}
+	}
+
 }
