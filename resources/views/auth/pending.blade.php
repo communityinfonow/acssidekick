@@ -6,7 +6,15 @@
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-body">
-					<p>Your registration must be validated by an administrator.
+					<p>You must verify your email address to complete registration.  A verification 
+						link was sent to the email address you used in registration.</p>
+					<p><b>You must <a href="logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+						before using the verification link.</b></p>  
+					<p>If you are unable to complete verification, please <a href="https://cinow.info/contact/">Contact Us</a>
+						for assistance.</p>
+					<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+						{{ csrf_field() }}
+					</form>
                 </div>
             </div>
         </div>
