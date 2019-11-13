@@ -70,7 +70,7 @@
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
-                        <li id="navquerybuilder"> <a href="{{ URL::to('/') }}"><i class="fa fa-database fa-fw"></i> Query Builder</a></li>
+                        <li id="navquerybuilder"> <a id="navquerybuilderhref" href="{{ URL::to('/') }}"><i class="fa fa-database fa-fw"></i> Query Builder</a></li>
                         <li id="navqueries"><a href="#"><i class="fa fa-table fa-fw"></i> Queries<span id="querydropdown"></span></a>
 							<ul id="navmyqueries" class="nav nav-second-level"></ul>
 						</li>
