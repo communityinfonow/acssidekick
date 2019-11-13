@@ -363,14 +363,14 @@ $(function() {
 		var confirmed = true;
 		if (window.location.pathname == '/') { // We were in the querybuilder and clicked the "Query Builder" nav link 
 			// If no query has been loaded, but a dataset has been chosem
-			if ($("#selectdataset").val() != '' && !$("#sqlquery").data('loadedquery')) {
+			if ($("#selectdataset").val() != '' && !$("#sqlquery").data('queryobj')) {
 				if (!confirm("WARNING: Unsaved changes will be lost!")) {
 					confirmed = false;	
 				}
 			}
 
 			// If a query has been loaded but doesn't match current state
-			if ($("#sqlquery").data('loadedquery') && $("#sqlquery").data('loadedquery') != buildqueryobject()) { // A query has been loaded
+			if ($("#sqlquery").data('queryobj') && $("#sqlquery").data('queryobj') != buildqueryobject()) { // A query has been loaded
 				if (!confirm("WARNING: Unsaved changes will be lost!")) {
 					confirmed = false;
 				}
@@ -1327,6 +1327,9 @@ $(function() {
 
 			// Do the save and load the result
 			saveobject("query", query, '#savequeryresult');	
+			
+			// Caputer the current state for change comparison
+			$("#sqlquery").data('queryobj', buildqueryobject());
 		}
 	});
 
@@ -1396,7 +1399,7 @@ $(function() {
 			$("#denominator").val(queryobj.denominator);
 
 			// save freshly loaded for change comparison
-			$("#sqlquery").data('loadedquery', buildqueryobject() );
+			$("#sqlquery").data('queryobj', buildqueryobject() );
 		});
 	});
 
