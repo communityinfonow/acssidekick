@@ -357,8 +357,33 @@ $(function() {
 		]
 	});
 
-	/* App initialization */
+	/* intercept querybuilder nav click to prevent work loss */
+ 	$("#navquerybuilderhref").click(function(e) {
+		e.preventDefault();
+		var confirmed = true;
+		if (window.location.pathname == '/') { // We were in the querybuilder and clicked the "Query Builder" nav link 
+			// If no query has been loaded, but a dataset has been chosem
+			if ($("#selectdataset").val() != '' && !$("#sqlquery").data('loadedquery')) {
+				if (!confirm("WARNING: Unsaved changes will be lost!")) {
+					confirmed = false;	
+				}
+			}
 
+			// If a query has been loaded but doesn't match current state
+			if ($("#sqlquery").data('loadedquery') && $("#sqlquery").data('loadedquery') != buildqueryobject()) { // A query has been loaded
+				if (!confirm("WARNING: Unsaved changes will be lost!")) {
+					confirmed = false;
+				}
+			}	
+		}
+
+		if (confirmed) {
+			window.location = '/';
+		}
+	});
+
+
+	/* App initialization */
 	$("#datafilters").data("filters", []); // We're going to need this later
 	$("#customaggs").data("customaggs", []); // This one too
 
@@ -1369,6 +1394,9 @@ $(function() {
 			});
 			$("#selectvariables").trigger('dblclick');
 			$("#denominator").val(queryobj.denominator);
+
+			// save freshly loaded for change comparison
+			$("#sqlquery").data('loadedquery', buildqueryobject() );
 		});
 	});
 
