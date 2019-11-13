@@ -27,7 +27,7 @@ Auth::routes();
 // Normal UI routes
 Route::get('/', function ()  {
 	if (Auth::user()->hasRole('pending')) {
-		return view('auth/pending');
+		return redirect('/pending');
 	} else {
     	return view('querybuilder');
 	}
@@ -37,6 +37,11 @@ Route::get('/admin', function() {
 	if(!Auth::user()->hasRole('admin')) abort(404); // Bail unless admin
 	return view('admin');
 })->middleware('auth');
+
+Route::get('/pending', function() {
+	Auth::logout();
+	return view('pending');
+})->name('pending');
 
 // Email verification support route
 Route::get('register/verify/{token}','Auth\RegisterController@verify');
