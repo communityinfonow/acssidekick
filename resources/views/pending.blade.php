@@ -10,6 +10,8 @@
 						link was sent to the email address you used in registration.  Once you have completed
 						verification you may <a href="login" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><b>Log in</b></a>
 						and use the Sidekick application.</p>  
+					<p>Note: If you do not receive the verification email within a few minutes, of 
+						signing up, please check your Junk E-mail folder.</p>
 					<p>If you are unable to complete verification, please <a href="https://cinow.info/contact/">Contact Us</a>
 						for assistance.</p>
 					<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
