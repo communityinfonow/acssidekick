@@ -364,7 +364,7 @@ $(function() {
 		if (window.location.pathname == '/') { // We were in the querybuilder and clicked the "Query Builder" nav link 
 			// If no query has been loaded, but a dataset has been chosem
 			if ($("#selectdataset").val() != '' && !$("#sqlquery").data('queryobj')) {
-				if (!confirm("WARNING: Unsaved changes will be lost!")) {
+				if (!confirm("Resetting the query builder will cause unsaved changes to be lost. Proceed?")) {
 					confirmed = false;	
 				}
 			}
