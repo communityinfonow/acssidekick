@@ -410,6 +410,9 @@ $(function() {
 	$("#geoaggvalstxt").prop("disabled", true);
 	$("#customaggvalstxt").prop("disabled", true);
 	$("#geoaggvals").prop("disabled", true);
+	$("#geoaggspacer").addClass('hidden');
+	$("#geoaggvaltypediv").addClass('hidden');
+	$("#geoaggvaltypetxt").prop('checked', true);
 	$("#customaggvals").prop("disabled", true);
 	$("#sqlquery").val('');
 
@@ -460,6 +463,9 @@ $(function() {
 			$("#geoagglist").html("");
 			$("#customagglist").html("");
 			$("#customaggs").data("customaggs", []);
+			$("#geoaggspacer").addClass('hidden');
+			$("#geoaggvaltypediv").addClass('hidden');
+			$("#geoaggvaltypetxt").prop('checked', true);
 			$("#sqlquery").val('');
 			$("#resultsgrid").html("");
 		}
@@ -501,6 +507,9 @@ $(function() {
 		$("#geoagglist").html("");
 		$("#customagglist").html("");
 		$("#customaggs").data("customaggs", []);
+		$("#geoaggspacer").addClass('hidden');
+		$("#geoaggvaltypediv").addClass('hidden');
+		$("#geoaggvaltypetxt").prop('checked', true);
 		$("#sqlquery").val('');
 		$("#resultsgrid").html("");
 	});
@@ -959,17 +968,59 @@ $(function() {
 		if ($("#geoaggexpr").val() !== '') {
 			$("#geoaggvalstxt").prop("disabled", false);
 			$("#geoaggvals").prop("disabled", false);
-			if ($("#geoaggname").val() !== "" && ("#geoaggvals").val() !== "") {
+			if ($("#geoaggname").val() !== "" && $("#geoaggvals").val() !== "") {
 				$("#addgeoagg").removeClass("disabled");
 			}
+			$("#geoaggspacer").removeClass('hidden');
+			$("#geoaggvaltypediv").removeClass('hidden');
 		} else {
 			$("#geoaggvals").prop("disabled", true);
 			$("#geoaggvalstxt").prop("disabled", true);
 			$("#addgeoagg").addClass("disabled");
+			$("#geoaggspacer").addClass('hidden');
+			$("#geoaggvaltypediv").addClass('hidden');
 		}
 	});
+
+/*
+		if ($("#datafilterexpr option:selected").val() == 'in list') {
+			$("#datafiltervalue").replaceWith(select)
+
+			$("#datafiltervalue").append($('<option>', {
+				value: "",
+				text: "Select a list ..." 
+			}));
+	
+			$.post('ajax/getlistlist').done(function(data) {
+				data.forEach(function(item) {
+					$("#datafiltervalue").append($('<option>', {
+						value: item.id,
+						text: item.name
+					}));
+				});	
+			});
+		}
+*/
 	
 	$("#geoaggvalstxt").focus(function() {
+		console.log($('input[name=geoaggvaltype]:checked').val());
+		var select='<select id="geoaggvals" class="form-control"></select>';
+		if ($('input[name=geoaggvaltype]:checked').val() == 'list') { // List is selected 
+			$("#geoaggvals").replaceWith(select)
+			$("#geoaggvals").append($('<option>', {
+				value: "",
+				text: "Select a list ..." 
+			}));
+	
+			$.post('ajax/getlistlist').done(function(data) {
+				data.forEach(function(item) {
+					$("#geoaggvals").append($('<option>', {
+						value: item.id,
+						text: item.name
+					}));
+				});	
+			});
+		}
 		$("#geoaggvalstxt").addClass('hidden');
 		$("#geoaggvals").removeClass('hidden');
 		$("#geoaggvals").focus();
@@ -1267,7 +1318,6 @@ $(function() {
 		});
 	});
 
-
 	$("#exportjson").click(function() {
 		var qry = JSON.parse(buildqueryobject());
 		qry['format']='json';
@@ -1356,6 +1406,10 @@ $(function() {
 
 			$("#queryname").html(' ('+ queryobj.name +')');	
 			$('#selectdataset option[value="'+queryobj.dataset+'"').prop('selected', true);
+			
+			// Save new selection for later change comparison
+			$('#selectdataset').data('prevds', queryobj.dataset);
+
 			loadselectoptions("#selectgeography", "ajax/loadoptions/Geography/" + $("#selectdataset").val(), 
 				"Choose from dropdown ...", queryobj.geography);
 			//$('#selectgeography option[value="'+queryobj.geography+'"').prop('selected', true);
@@ -1410,6 +1464,7 @@ $(function() {
 			});
 			$("#selectvariables").trigger('dblclick');
 			$("#denominator").val(queryobj.denominator);
+
 
 			// save freshly loaded for change comparison
 			$("#sqlquery").data('queryobj', buildqueryobject() );
