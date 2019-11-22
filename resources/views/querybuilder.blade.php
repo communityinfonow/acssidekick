@@ -80,6 +80,7 @@
 								</button>
 							</div>
 						</div>
+						<div id="geoaggspacer" style="width: 90%;" class="text-right hidden">&nbsp;</div> <!-- spacer -->
 						<ul id="filterlist" class="list-group">
 						</ul>
 					</div>
@@ -96,24 +97,32 @@
 					<div id="geoaggs" class="form-group">
 						<label>Aggregate Geographies</label>
 						<div style="width: 100%;" class="input-group">
-							<div style="width: 40%; vertical-align: top;" class="input-group-btn">
+							<div style="width: 39%; vertical-align: top;" class="input-group-btn">
 								<input id="geoaggname" class="form-control" placeholder="New geo name ...">
 							</div>
-							<div style="width: 20%;vertical-align: top;" class="input-group-btn">
+							<div style="width: 19%;vertical-align: top;" class="input-group-btn">
 								<!--<select style="-moz-appearance: none; -webkit-appearance: none; appearance: none;" id="geoaggexpr" class="form-control">-->
 								<select id="geoaggexpr" class="form-control">
 									<option value="">...</option>
 								</select>
 							</div>
-							<div style="max-width: 40%; width: 40%; vertical-align: top;" class="input-group-btn">
+							<div style="width: 39%; vertical-align: top;" class="input-group-btn">
 								<textarea id="geoaggvals" class="form-control hidden" placeholder="One value per line ..."></textarea>
 								<input id="geoaggvalstxt" class="form-control" placeholder="One value per line ...">
 							</div>
-							<div style="vertical-align: top;" class="input-group-btn">
+							<div style="width: 3%; vertical-align: top;" class="input-group-btn">
 								<button id="addgeoagg" class="btn btn-primary disabled">
 									<i class="fa fa-plus" aria-hidden="true"></i>
 								</button>
 							</div>
+						</div>
+						<div id="geoaggvaltypediv" style="width: 90%;" class="text-right hidden">
+							<label class="radio-inline">
+								<input id="geoaggvaltypetxt" type="radio" name="geoaggvaltype" value="txt"> Enter
+							</label>
+							<label class="radio-inline">
+								<input id="geoaggvaltypelst" type="radio" name="geoaggvaltype" value="list"> Use list
+							</label>
 						</div>
 						<ul id="geoagglist" class="list-group">
 						</ul>
