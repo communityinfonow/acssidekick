@@ -982,49 +982,53 @@ $(function() {
 		}
 	});
 
-/*
-		if ($("#datafilterexpr option:selected").val() == 'in list') {
-			$("#datafiltervalue").replaceWith(select)
-
-			$("#datafiltervalue").append($('<option>', {
-				value: "",
-				text: "Select a list ..." 
-			}));
-	
-			$.post('ajax/getlistlist').done(function(data) {
-				data.forEach(function(item) {
-					$("#datafiltervalue").append($('<option>', {
-						value: item.id,
-						text: item.name
-					}));
-				});	
-			});
-		}
-*/
-	
 	$("#geoaggvalstxt").focus(function() {
-		console.log($('input[name=geoaggvaltype]:checked').val());
-		var select='<select id="geoaggvals" class="form-control"></select>';
-		if ($('input[name=geoaggvaltype]:checked').val() == 'list') { // List is selected 
-			$("#geoaggvals").replaceWith(select)
-			$("#geoaggvals").append($('<option>', {
-				value: "",
-				text: "Select a list ..." 
-			}));
-	
-			$.post('ajax/getlistlist').done(function(data) {
-				data.forEach(function(item) {
-					$("#geoaggvals").append($('<option>', {
-						value: item.id,
-						text: item.name
-					}));
-				});	
-			});
-		}
 		$("#geoaggvalstxt").addClass('hidden');
 		$("#geoaggvals").removeClass('hidden');
 		$("#geoaggvals").focus();
 	});	
+
+	$("#geoaggvaltypelst").click(function() {
+		var select='<select id="geoaggvals" class="form-control"></select>';
+		$("#geoaggvals").replaceWith(select)
+		$("#geoaggvals").append($('<option>', {
+			value: "",
+			text: "Select a list ..." 
+		}));
+	
+		$.post('ajax/getlistlist').done(function(data) {
+			data.forEach(function(item) {
+				$("#geoaggvals").append($('<option>', {
+					value: item.id,
+					text: item.name
+				}));
+			});	
+		});
+		$("#geoaggvalstxt").focus();
+	});
+
+	$("#geoaggvaltypetxt").click(function() {
+		var gata='<textarea id="geoaggvals" class="form-control hidden" placeholder="One value per line ..."></textarea>';
+		$("#geoaggvals").replaceWith(gata);
+		$("#geoaggvalstxt").removeClass('hidden');
+		
+		// Have to redo this stuff since we tampered with the DOM
+		$("#geoaggvals").bind('input propertychange', function() {
+			if ($("#geoaggvals").val() !== "" && $("#geoaggexpr").val() != '') {
+				$("#addgeoagg").removeClass("disabled");
+			} else {
+				$("#addgeoagg").addClass("disabled");
+			}
+		});
+
+		$("#geoaggvals").blur(function() {
+			$("#geoaggvalstxt").val($("#geoaggvals").val().split(/\n/)[0]+" [...]");
+			$("#geoaggvals").addClass('hidden');
+			$("#geoaggvalstxt").removeClass('hidden');
+		});
+
+		$("#geoaggvalstxt").focus();
+	});
 
 	$("#geoaggvals").blur(function() {
 		$("#geoaggvalstxt").val($("#geoaggvals").val().split(/\n/)[0]+" [...]");
@@ -1038,12 +1042,6 @@ $(function() {
 		} else {
 			$("#addgeoagg").addClass("disabled");
 		}
-	});
-
-	$("#geoaggvals").blur(function() {
-		$("#geoaggvalstxt").val($("#geoaggvals").val().split(/\n/)[0]+" [...]");
-		$("#geoaggvals").addClass('hidden');
-		$("#geoaggvalstxt").removeClass('hidden');
 	});
 
 	// Column aggregration
@@ -1226,6 +1224,8 @@ $(function() {
 		$("#customaggvals").prop("disabled", true);
 		$("#addgeoagg").addClass("disabled");
 		$("#addcustomagg").addClass("disabled");
+		$("#geoaggspacer").addClass('hidden');
+		$("#geoaggvaltypediv").addClass('hidden');
 
 		// Update query object
 		var qry = buildqueryobject();
