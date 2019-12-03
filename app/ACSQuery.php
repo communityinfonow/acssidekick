@@ -398,7 +398,22 @@ class ACSQuery {
 						}
 
 						// WHERE
-						$qry .= "\nWHERE ".$customagg['key']." in ".$customagg['vals'];
+						if ($customagg['type'] == 'row' && $customagg['valtype'] == 'list') {
+							// list handling	
+							$listid=trim($customagg['vals'], "()'"); // Turns ('1') into 1
+							$li = ItemListItem::where('list_id', $listid)->get();
+
+							$list = '';
+							foreach ($li as $i) {
+								$list .= "'".$i->item."', ";	
+							}
+							$list = trim($list); // trim off the trailing space 
+							$list = trim($list, ','); // trim off the trailing comma
+							$qry .= "\nWHERE ".$customagg['key']." in (".$list.")";
+						
+						} else {
+							$qry .= "\nWHERE ".$customagg['key']." in ".$customagg['vals'];
+						}
 					}
 				}
 			}

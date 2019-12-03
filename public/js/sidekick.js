@@ -83,6 +83,8 @@ function buildqueryobject() {
 	queryobj.denominator = $("#denominator").val();
 	queryobj.customaggs = $("#customaggs").data("customaggs");
 
+	console.log(queryobj);
+
 	return JSON.stringify(queryobj);
 }
 
@@ -954,7 +956,8 @@ $(function() {
 				$("#geoaggvalstxt").prop("disabled", false);
 			}
 			if ($("#geoaggvals").val() !== "" && $("#geoaggexpr").val() != '') {
-				$("#addgeoagg").removeClass("disabled");$("#addgeoagg").removeClass("disabled");
+				$("#addgeoagg").removeClass("disabled");
+				$("#addgeoagg").removeClass("disabled");
 			}
 		} else {
 			$("#geoaggexpr").prop("disabled", true);
@@ -1004,6 +1007,16 @@ $(function() {
 				}));
 			});	
 		});
+
+		// Have to redo this stuff since we tampered with the DOM
+		$("#geoaggvals").bind('input propertychange', function() {
+			if ($("#geoaggvals").val() !== "" && $("#geoaggexpr").val() != '') {
+				$("#addgeoagg").removeClass("disabled");
+			} else {
+				$("#addgeoagg").addClass("disabled");
+			}
+		});
+
 		$("#geoaggvalstxt").focus();
 	});
 
@@ -1131,9 +1144,15 @@ $(function() {
 				keyname: $("#geoaggexpr option:selected").text(),
 				alias: $("#geoaggname").val(),
 				vals: $("#geoaggvals").val(), 
+				vallabel: $("#geoaggvals").val(), 
+				valtype: $("input[name='geoaggvaltype']:checked").val(), 
 				cols: [], 
 				collist: ""
 			};
+			
+			if (customagg.valtype == 'list') {
+				customagg.vallable = $("#geoaggvals option:selected").text(); 
+			}
 		} else {
 			var customagg = {
 				id: customaggid,
@@ -1179,18 +1198,27 @@ $(function() {
 		}
 		customagg.collist = collist;
 
-
 		$("#customaggs").data("customaggs").push(customagg);
 
 		// Update the visible list
 		if (customagg.type == 'row') {
-			$("#geoagglist").append(
-				'<li id="' + customagg.id + 
-				'" style="padding:5px;" class="list-group-item clearfix">' + 
-				'<b>' + customagg.alias + '</b>: ' + customagg.keyname + ' <b>in</b> ' + customagg.vals +  
-				'<span class="pull-right"><button class="btn btn-sm btn-danger customaggdel"><i class="fa fa-trash"></i></button></span>' + 
-				'</li>'
-			);
+			if (customagg.valtype == 'list') {
+				$("#geoagglist").append(
+					'<li id="' + customagg.id + 
+					'" style="padding:5px;" class="list-group-item clearfix">' + 
+					'<b>' + customagg.alias + '</b>: ' + customagg.keyname + ' <b>in list</b> ' + customagg.vallable +  
+					'<span class="pull-right"><button class="btn btn-sm btn-danger customaggdel"><i class="fa fa-trash"></i></button></span>' + 
+					'</li>'
+				);
+			} else {
+				$("#geoagglist").append(
+					'<li id="' + customagg.id + 
+					'" style="padding:5px;" class="list-group-item clearfix">' + 
+					'<b>' + customagg.alias + '</b>: ' + customagg.keyname + ' <b>in</b> ' + customagg.vals +  
+					'<span class="pull-right"><button class="btn btn-sm btn-danger customaggdel"><i class="fa fa-trash"></i></button></span>' + 
+					'</li>'
+				);
+			}
 		} else {
 			$("#customagglist").append(
 				'<li id="' + customagg.id + 
@@ -1202,6 +1230,7 @@ $(function() {
 		}
 
 		// Reset form state
+		
 		$("#geoaggname").val("");
 		$("#customaggname").val("");
 		$("#geoaggexpr").val("");
@@ -1214,6 +1243,7 @@ $(function() {
 		$("#customaggcheckboxes :checkbox:checked").each(function() {
 			this.checked = false;
 		});
+		$("#geoaggvals").addClass('hidden');
 		$("#geoaggvalstxt").removeClass('hidden');
 		$("#customaggvalstxt").removeClass('hidden');
 		$("#geoaggexpr").prop("disabled", true);
@@ -1226,6 +1256,7 @@ $(function() {
 		$("#addcustomagg").addClass("disabled");
 		$("#geoaggspacer").addClass('hidden');
 		$("#geoaggvaltypediv").addClass('hidden');
+		$("#geoaggvaltypetxt").click();
 
 		// Update query object
 		var qry = buildqueryobject();
@@ -1445,13 +1476,23 @@ $(function() {
 			queryobj.customaggs.forEach(function(customagg) {
 				// Update the visible list
 				if (customagg.type == 'row') {
-					$("#geoagglist").append(
-						'<li id="' + customagg.id + 
-						'" style="padding:5px;" class="list-group-item clearfix">' + 
-						'<b>' + customagg.alias + '</b>: ' + customagg.keyname + ' <b>in</b> ' + customagg.vals +  
-						'<span class="pull-right"><button class="btn btn-sm btn-danger customaggdel"><i class="fa fa-trash"></i></button></span>' + 
-						'</li>'
-					);
+					if (customagg.valtype == 'list') {
+						$("#geoagglist").append(
+							'<li id="' + customagg.id + 
+							'" style="padding:5px;" class="list-group-item clearfix">' + 
+							'<b>' + customagg.alias + '</b>: ' + customagg.keyname + ' <b>in list</b> ' + customagg.vallable +  
+							'<span class="pull-right"><button class="btn btn-sm btn-danger customaggdel"><i class="fa fa-trash"></i></button></span>' + 
+							'</li>'
+						);
+					} else {
+						$("#geoagglist").append(
+							'<li id="' + customagg.id + 
+							'" style="padding:5px;" class="list-group-item clearfix">' + 
+							'<b>' + customagg.alias + '</b>: ' + customagg.keyname + ' <b>in</b> ' + customagg.vals +  
+							'<span class="pull-right"><button class="btn btn-sm btn-danger customaggdel"><i class="fa fa-trash"></i></button></span>' + 
+							'</li>'
+						);
+					}
 				} else {
 					$("#customagglist").append(
 						'<li id="' + customagg.id + 
