@@ -602,7 +602,7 @@ $(function() {
 			} else { // Value columns
 				// Add a checkbox for the data column
 				$("#customaggcheckboxes").append(
-					'<input style="max-width: 40%;" type="checkbox" id="cb-"' + item.value + ' name="' + item.value + '" value="' + item.text + '"> ' +
+					'<input style="display: inline-block; max-width: 40%;" type="checkbox" id="cb-"' + item.value + ' name="' + item.value + '" value="' + item.text + '"> ' +
 					item.text + '<br />' + "\n"
 				);
 

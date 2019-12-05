@@ -130,8 +130,8 @@
 					
 					<div id="customaggs" class="form-group">
 						<label>Aggregate Fields</label>
-						<div style="width: 100%;" class="input-group">
-							<div style="width: 40%; vertical-align: top;" class="input-group-btn">
+						<div style="position: relative; width: 100%;" class="input-group">
+							<div style="position: abolute; width: 40%; vertical-align: top;" class="input-group-btn">
 								<input id="customaggname" class="form-control" placeholder="New field name ...">
 								<input type="hidden" id="customaggexpr">
 							</div>
@@ -141,12 +141,12 @@
 								</select>
 							</div>
 							!-->
-							<div style="max-width: 60%; width: 60%; vertical-align: top;" class="input-group-btn">
-								<textarea id="customaggvals" class="form-control hidden" placeholder="Select fields ..."></textarea>
-								<div style="width: 100%; max-width: 100%; height: 90px; overflow: auto;" id="customaggcheckboxes" class="form-control hidden"></div>
-								<input id="customaggvalstxt" class="form-control" placeholder="Select fields ...">
+							<div style="position: absolute; width: 53%;  vertical-align: top;" class="input-group-btn">
+								<textarea style="width: 100%;" id="customaggvals" class="form-control hidden" placeholder="Select fields ..."></textarea>
+								<div style="width: 100%; overflow: scroll; height: 90px;" id="customaggcheckboxes" class="form-control hidden"></div>
+								<input style="width: 100%;" id="customaggvalstxt" class="form-control" placeholder="Select fields ...">
 							</div>
-							<div style="vertical-align: top;" class="input-group-btn">
+							<div style="position: absolute: width: 5%; vertical-align: top;" class="input-group-btn">
 								<button id="addcustomagg" class="btn btn-primary disabled">
 									<i class="fa fa-plus" aria-hidden="true"></i>
 								</button>
