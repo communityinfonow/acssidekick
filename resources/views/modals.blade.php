@@ -65,3 +65,28 @@
 				<div  id="savelistresult" class="modal-footer"></div>
 			</div>
 		</div>
+		<div id="customaggmodal" style="top: 20%; left: 10%;" class="modal modal-lg fade" role="dialog">
+			<div class="modal-content">
+				<div class="modal-header modal-header-primary">
+					<span style="vertical-align: middle;" class="modal-title">
+						<h4><span id="customaggstitle">Select Columns</span>
+						<button style="display: inline-block; vertical-align: middle;" type="button" class="col btn btn-primary pull-right" data-dismiss="modal">
+							<i class="fa fa-lg fa-times"  aria-hidden="true"></i>
+						</button></h4>
+					</span>
+				</div>
+				<div class="modal-body">
+					<form id="customaggform">
+						<div class="form-group">
+							<div style="width: 100%; overflow: scroll; height:300px;" id="customaggcheckboxes" class="form-control hidden"></div>
+						</div>
+						<div class="input-group">
+							<span class="input-group-btn">
+								<button id="addcustomagg" type="button" class="form-control btn btn-primary disabled">Add</button>
+							</span>
+						</div>
+					</form>
+				</div>
+				<div  id="customaggresult" class="modal-footer"></div>
+			</div>
+		</div>

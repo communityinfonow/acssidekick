@@ -141,16 +141,16 @@
 								</select>
 							</div>
 							!-->
-							<div style="position: absolute; width: 53%;  vertical-align: top;" class="input-group-btn">
+							<div style="position: absolute; width: 60%;  vertical-align: top;" class="input-group-btn">
 								<textarea style="width: 100%;" id="customaggvals" class="form-control hidden" placeholder="Select fields ..."></textarea>
-								<div style="width: 100%; overflow: scroll; height: 90px;" id="customaggcheckboxes" class="form-control hidden"></div>
+								<!--<div style="width: 100%; overflow: scroll; height: 90px;" id="customaggcheckboxes" class="form-control hidden"></div>-->
 								<input style="width: 100%;" id="customaggvalstxt" class="form-control" placeholder="Select fields ...">
 							</div>
-							<div style="position: absolute: width: 5%; vertical-align: top;" class="input-group-btn">
+							<!--<div style="position: absolute: width: 5%; vertical-align: top;" class="input-group-btn">
 								<button id="addcustomagg" class="btn btn-primary disabled">
 									<i class="fa fa-plus" aria-hidden="true"></i>
 								</button>
-							</div>
+							</div>-->
 						</div>
 						<ul id="customagglist" class="list-group">
 						</ul>

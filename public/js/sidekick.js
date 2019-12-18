@@ -83,8 +83,6 @@ function buildqueryobject() {
 	queryobj.denominator = $("#denominator").val();
 	queryobj.customaggs = $("#customaggs").data("customaggs");
 
-	console.log(queryobj);
-
 	return JSON.stringify(queryobj);
 }
 
@@ -1079,8 +1077,10 @@ $(function() {
 	$("#customaggexpr").change(function() {
 		if ($("#customaggexpr").val() == 'COLUMNS') {
 			$("#customaggvalstxt").addClass('hidden');
+			$("#customaggmodal").modal();
 			$("#customaggcheckboxes").removeClass('hidden');
 		} else {
+			$("#customaggmodal").modal('hide');
 			$("#customaggcheckboxes").addClass('hidden');
 			$("#customaggvalstxt").removeClass('hidden');
 		}
@@ -1089,11 +1089,18 @@ $(function() {
 	// Toggle hide of textarea for cleaner formatting
 	$("#customaggvalstxt").focus(function() {
 		$("#customaggvalstxt").addClass('hidden');
-		$("#customaggvals").removeClass('hidden');
-		$("#customaggvals").focus();
+		//$("#customaggvals").removeClass('hidden');
+		//$("#customaggvals").focus();
+		$("#customaggmodal").modal();
 	});	
 
 	$("#customaggvals").blur(function() {
+		$("#customaggvalstxt").val($("#customaggvals").val().split(/\n/)[0]+" [...]");
+		$("#customaggvals").addClass('hidden');
+		$("#customaggvalstxt").removeClass('hidden');
+	});
+
+	$('#customaggmodal').on('hidden.bs.modal', function() {
 		$("#customaggvalstxt").val($("#customaggvals").val().split(/\n/)[0]+" [...]");
 		$("#customaggvals").addClass('hidden');
 		$("#customaggvalstxt").removeClass('hidden');
@@ -1239,6 +1246,7 @@ $(function() {
 		$("#customaggvalstxt").val("");
 		$("#geoaggvals").val("");
 		$("#customaggvals").val("");
+		$("#customaggmodal").modal("hide");
 		$("#customaggcheckboxes").addClass('hidden');
 		$("#customaggcheckboxes :checkbox:checked").each(function() {
 			this.checked = false;
