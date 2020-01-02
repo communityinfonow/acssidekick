@@ -1060,14 +1060,14 @@ $(function() {
 		if ($("#customaggname").val() !== "") {
 			$("#customaggexpr").val('COLUMNS');
 			$("#customaggvalstxt").prop("disabled", false);
-			$("#customaggvals").prop("disabled", false);	
+			//$("#customaggvals").prop("disabled", false);	
 			if ($("#customaggcheckboxes :checkbox:checked").length > 1) {
 				$("#addcustomagg").removeClass("disabled");
 			}
 		} else {
 			$("#customaggexpr").val('');
 			$("#customaggvalstxt").prop("disabled", true);
-			$("#customaggvals").prop("disabled", true);
+			//$("#customaggvals").prop("disabled", true);
 			$("#addcustomagg").addClass("disabled");
 		}
 		$("#customaggexpr").change();
@@ -1076,8 +1076,9 @@ $(function() {
 	// Toggle checkbox area for COLUMN aggregations
 	$("#customaggexpr").change(function() {
 		if ($("#customaggexpr").val() == 'COLUMNS') {
-			$("#customaggvalstxt").addClass('hidden');
-			$("#customaggmodal").modal();
+			//$("#customaggvalstxt").addClass('hidden');
+			//$("#customaggmodal").modal();
+			$("#customaggvalstxt").val(' Select fields ...');
 			$("#customaggcheckboxes").removeClass('hidden');
 		} else {
 			$("#customaggmodal").modal('hide');
@@ -1088,20 +1089,18 @@ $(function() {
 
 	// Toggle hide of textarea for cleaner formatting
 	$("#customaggvalstxt").focus(function() {
-		$("#customaggvalstxt").addClass('hidden');
-		//$("#customaggvals").removeClass('hidden');
-		//$("#customaggvals").focus();
+		//$("#customaggvalstxt").addClass('hidden');
 		$("#customaggmodal").modal();
 	});	
 
 	$("#customaggvals").blur(function() {
-		$("#customaggvalstxt").val($("#customaggvals").val().split(/\n/)[0]+" [...]");
+		//$("#customaggvalstxt").val($("#customaggvals").val().split(/\n/)[0]+" [...]");
 		$("#customaggvals").addClass('hidden');
 		$("#customaggvalstxt").removeClass('hidden');
 	});
 
 	$('#customaggmodal').on('hidden.bs.modal', function() {
-		$("#customaggvalstxt").val($("#customaggvals").val().split(/\n/)[0]+" [...]");
+		//$("#customaggvalstxt").val($("#customaggvals").val().split(/\n/)[0]+" [...]");
 		$("#customaggvals").addClass('hidden');
 		$("#customaggvalstxt").removeClass('hidden');
 	});
@@ -1115,6 +1114,12 @@ $(function() {
 	});
 
 	$("#customaggcheckboxes").click(function() {
+		if ($("#customaggcheckboxes :checkbox:checked").length > 0) {  // At least one box checked
+			$("#customaggvalstxt").val($("#customaggvals").val().split(/\n/)[0]+" [...]");
+		} else {
+			$("#customaggvalstxt").val('');
+		}
+
 		if ($("#customaggcheckboxes :checkbox:checked").length > 1) { // At least two columns are required for aggregation
 			$("#addcustomagg").removeClass("disabled");
 		} else {
