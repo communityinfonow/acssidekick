@@ -69,7 +69,7 @@
 			<div class="modal-content">
 				<div class="modal-header modal-header-primary">
 					<span style="vertical-align: middle;" class="modal-title">
-						<h4><span id="customaggstitle">Select Columns</span>
+						<h4><span id="customaggstitle">Select Fields</span>
 						<button style="display: inline-block; vertical-align: middle;" type="button" class="col btn btn-primary pull-right" data-dismiss="modal">
 							<i class="fa fa-lg fa-times"  aria-hidden="true"></i>
 						</button></h4>
