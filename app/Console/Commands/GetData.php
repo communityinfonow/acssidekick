@@ -274,6 +274,8 @@ class getdata extends Command
 					$varct++;
 				}
 
+				$statenum=$state;
+
 				// Add geo, predicates, and key
 				foreach($requests as $idx => $req) {
 					if (array_search($geo_predicate, array('us', 'region', 'division', 'state')) !== false) {
@@ -283,6 +285,8 @@ class getdata extends Command
 					} elseif ($geo_predicate == 'zip+code+tabulation+area') { // These are handled specially as in=state:## isn't supported :(
 						$requests[$idx]=$req."&for=".$geo_predicate.":*&key=".$apikey;	
 						// Works but takes too damn long.  
+					} elseif ($geo_predicate == 'block+group') { // As of 2019 block group requires the county in modifier
+						$requests[$idx]=$req."&for=".$geo_predicate.":*&in=state:".$statenum."+county:*&key=".$apikey;
 
 					} else  { // For sub state level geos, only get specified state's data
 						$requests[$idx]=$req."&for=".$geo_predicate.":*&in=state:".$statenum."&key=".$apikey;
