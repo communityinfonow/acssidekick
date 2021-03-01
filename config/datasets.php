@@ -12,16 +12,16 @@ return [
 			]
 		],
 		'geographies' => [ 
-			//'US' => 'us',
-			//'REGION' => 'region',
-			//'DIVISION' => 'division',
-			//'STATE' => 'state',
-			//'COUNTY' => 'county',
-			//'CSA' => 'combined+statistical+area',
-			//'CDCURR' => 'congressional+district',
-			//'SDUNI' => 'school+district+(unified)',
-			//'ZCTA' => 'zip+code+tabulation+area',
-			//'TRACT' => 'tract',
+			'US' => 'us',
+			'REGION' => 'region',
+			'DIVISION' => 'division',
+			'STATE' => 'state',
+			'COUNTY' => 'county',
+			'CSA' => 'combined+statistical+area',
+			'CDCURR' => 'congressional+district',
+			'SDUNI' => 'school+district+(unified)',
+			'ZCTA' => 'zip+code+tabulation+area',
+			'TRACT' => 'tract',
 			'BLKGRP' => 'block+group'
 		],
 		'geo_parents' => [
@@ -72,15 +72,15 @@ return [
 			]
 		],
 		'geographies' => [ 
-			//'US' => 'us',
-			//'REGION' => 'region',
-			//'DIVISION' => 'division',
-			//'STATE' => 'state',
-			//'COUNTY' => 'county',
-			//'CSA' => 'combined+statistical+area',
-			//'CDCURR' => 'congressional+district',
-			//'SDUNI' => 'unified+school+district',
-			// 'ZCTA' => 'zip+code+tabulation+area'
+			'US' => 'us',
+			'REGION' => 'region',
+			'DIVISION' => 'division',
+			'STATE' => 'state',
+			'COUNTY' => 'county',
+			'CSA' => 'combined+statistical+area',
+			'CDCURR' => 'congressional+district',
+			'SDUNI' => 'unified+school+district',
+			'ZCTA' => 'zip+code+tabulation+area'
 			'TRACT' => 'census+tract',
 			'BLKGRP' => 'block+group'
 		],
@@ -102,15 +102,15 @@ return [
 			]
 		],
 		'geographies' => [ 
-			//'US' => 'us',
-			//'REGION' => 'region',
-			//'DIVISION' => 'division',
-			//'STATE' => 'state',
-			//'COUNTY' => 'county',
-			//'CSA' => 'combined+statistical+area',
-			//'CDCURR' => 'congressional+district',
-			//'SDUNI' => 'unified+school+district',
-			//'ZCTA' => 'zip+code+tabulation+area'
+			'US' => 'us',
+			'REGION' => 'region',
+			'DIVISION' => 'division',
+			'STATE' => 'state',
+			'COUNTY' => 'county',
+			'CSA' => 'combined+statistical+area',
+			'CDCURR' => 'congressional+district',
+			'SDUNI' => 'unified+school+district',
+			'ZCTA' => 'zip+code+tabulation+area'
 			'TRACT' => 'census+tract',
 			'BLKGRP' => 'block+group'
 		],
