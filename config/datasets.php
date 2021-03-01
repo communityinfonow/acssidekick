@@ -3,7 +3,7 @@
 return [
 	// Dataset configurations
 	'2019_acs5' => [
-		'label' => '2018 ACS 5-year',
+		'label' => '2019 ACS 5-year',
 		'titles' => [
 			'detail_tables' => [
 				'base_url' => 'https://api.census.gov/data/2019/acs/acs5',
