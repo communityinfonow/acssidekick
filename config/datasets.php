@@ -80,7 +80,7 @@ return [
 			'CSA' => 'combined+statistical+area',
 			'CDCURR' => 'congressional+district',
 			'SDUNI' => 'unified+school+district',
-			'ZCTA' => 'zip+code+tabulation+area'
+			'ZCTA' => 'zip+code+tabulation+area',
 			'TRACT' => 'census+tract',
 			'BLKGRP' => 'block+group'
 		],
@@ -110,7 +110,7 @@ return [
 			'CSA' => 'combined+statistical+area',
 			'CDCURR' => 'congressional+district',
 			'SDUNI' => 'unified+school+district',
-			'ZCTA' => 'zip+code+tabulation+area'
+			'ZCTA' => 'zip+code+tabulation+area',
 			'TRACT' => 'census+tract',
 			'BLKGRP' => 'block+group'
 		],
