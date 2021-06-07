@@ -99,11 +99,15 @@ class GetMeta extends Command
 	
 						$concept_labels[$conceptcode]=$conceptlabel;
 
+						// Fix 2019 addition of trailing colons everywhere
+						$var['label']=str_replace(':!!','!!',$var['label']);
+						$var['label']=trim($var['label'],':');
+
 						// Correct labeling for Total
 						if ($var['label'] == 'Estimate!!Total') {
 							$var['label'] = 'Estimate!!Total!!Total'; 
 						}
-				
+
 						$cols[$conceptcode][$varcode]=$var['label'];
 		
 						if (!isset($count[$conceptcode])) {
